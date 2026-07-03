@@ -32,6 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Deliberately stalling a render frame causes the sim to catch up gracefully over subsequent ticks rather than freezing or jumping instantly to a far-future position
   3. The radar canvas displays range rings and sector reference lines as a static background layer
   4. A moving aircraft renders as a dot with a heading vector line and a trail of recent position dots, and its on-screen position only ever reflects sim-tick state — never a value altered by the render pass itself
+  5. README.md's Installation section is updated with real setup/run instructions (venv, dependency install, how to launch the walking skeleton), replacing the "not available yet" placeholder
 **Plans**: TBD
 
 ### Phase 2: Navdata & Coordinate Projection
