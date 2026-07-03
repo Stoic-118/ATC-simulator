@@ -28,6 +28,17 @@ See [`.planning/PROJECT.md`](.planning/PROJECT.md) for full context, decisions, 
 
 See [`.planning/research/STACK.md`](.planning/research/STACK.md) for the full stack rationale.
 
+## Installation
+
+> **Not available yet.** This project is still in the planning stage — Phase 1 (the walking skeleton) hasn't been built, so there's no package, entry point, or dependency list to install yet.
+>
+> Once Phase 1 ships, this section will cover:
+> - Cloning the repo and setting up a Python 3.12+ virtual environment
+> - Installing dependencies (`pygame-ce`, `pygame_gui`, `pydantic`, `geographiclib`)
+> - Running the simulator and loading a scenario
+>
+> Track progress in [`.planning/ROADMAP.md`](.planning/ROADMAP.md).
+
 ## Roadmap
 
 Built as a vertical MVP slice across 7 phases, starting from a walking skeleton (sim clock + bare radar render loop) and building up through navdata, aircraft performance/procedures, instruction handling, separation detection, scenario loading, and the comms log.
