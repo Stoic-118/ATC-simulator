@@ -5,8 +5,8 @@ milestone_name: milestone
 current_phase: 1
 current_phase_name: Walking Skeleton — Sim Clock & Radar Render Loop
 status: planning
-stopped_at: Phase 1 context gathered
-last_updated: "2026-07-03T22:44:01.473Z"
+stopped_at: Phase 1 UI-SPEC approved
+last_updated: "2026-07-04T18:35:42.883Z"
 last_activity: 2026-07-03
 last_activity_desc: Roadmap created, 27/27 v1 requirements mapped across 7 phases
 progress:
@@ -86,6 +86,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-03T22:44:01.459Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-walking-skeleton-sim-clock-radar-render-loop/01-CONTEXT.md
+Last session: 2026-07-04T18:35:42.848Z
+Stopped at: Phase 1 UI-SPEC approved
+Resume file: .planning/phases/01-walking-skeleton-sim-clock-radar-render-loop/01-UI-SPEC.md
