@@ -23,7 +23,7 @@ Prove the single riskiest architectural bet — a fixed-timestep sim clock fully
 - **D-03:** Fixed window size (e.g. 1280x800) for this skeleton — no resize/scaling logic needed yet. Revisit resizability in a later phase if desired.
 
 ### v1 Scope Confirmation (not a Phase 1 decision, but resolved during this discussion)
-- **D-04:** During discussion the user initially proposed multiple aircraft picking between several SIDs/STARs for the test path. This was identified as scope creep (belongs to Phase 3+, and directly conflicts with the already-locked v1 decision of one SID/one STAR). **Resolved: v1 scope stays as originally defined — one SID, one STAR.** The multi-procedure idea remains deferred to v2 as `TRAF-01` in REQUIREMENTS.md; no changes made to REQUIREMENTS.md or ROADMAP.md as a result of this discussion.
+- **D-04 [informational]:** During discussion the user initially proposed multiple aircraft picking between several SIDs/STARs for the test path. This was identified as scope creep (belongs to Phase 3+, and directly conflicts with the already-locked v1 decision of one SID/one STAR). **Resolved: v1 scope stays as originally defined — one SID, one STAR.** The multi-procedure idea remains deferred to v2 as `TRAF-01` in REQUIREMENTS.md; no changes made to REQUIREMENTS.md or ROADMAP.md as a result of this discussion.
 
 ### Claude's Discretion
 - Exact fixed sim tick rate within the 1-4Hz range, the max-ticks-per-frame cap value, and the specific numeric window resolution are implementation details left to the planner/research, per the project's existing STACK.md and ARCHITECTURE.md research.
