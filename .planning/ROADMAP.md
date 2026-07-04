@@ -33,7 +33,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. The radar canvas displays range rings and sector reference lines as a static background layer
   4. A moving aircraft renders as a dot with a heading vector line and a trail of recent position dots, and its on-screen position only ever reflects sim-tick state — never a value altered by the render pass itself
   5. README.md's Installation section is updated with real setup/run instructions (venv, dependency install, how to launch the walking skeleton), replacing the "not available yet" placeholder
-**Plans**: TBD
+**Plans**: 5 plans
+- [ ] 01-01-PLAN.md — Scaffold src-layout package, pyproject.toml, venv/deps, sim/render boundary guard
+- [ ] 01-02-PLAN.md — Fixed-timestep accumulator sim clock (SimClock), TDD (CORE-01/02)
+- [ ] 01-03-PLAN.md — Aircraft model + snapshot/interpolation math, TDD (CORE-03, RADAR-03)
+- [ ] 01-04-PLAN.md — Radar canvas (rings/sector lines/dot/vector/trail) + app.py main loop (RADAR-01/03)
+- [ ] 01-05-PLAN.md — README install/run instructions + walking-skeleton run verification
 
 ### Phase 2: Navdata & Coordinate Projection
 **Goal**: The radar displays real EGGW navdata (runway 26, one SID, one STAR) through a cosine-corrected lat/lon-to-pixel projection shared with the future separation-check math, with heading/course/track/bearing modeled as distinct fields.
@@ -115,7 +120,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Walking Skeleton — Sim Clock & Radar Render Loop | 0/TBD | Not started | - |
+| 1. Walking Skeleton — Sim Clock & Radar Render Loop | 0/5 | Not started | - |
 | 2. Navdata & Coordinate Projection | 0/TBD | Not started | - |
 | 3. Aircraft Performance, Flight-Phase FSM & Procedure Following | 0/TBD | Not started | - |
 | 4. Instruction Handling — Click, Panel, Vectoring & ILS Capture | 0/TBD | Not started | - |
