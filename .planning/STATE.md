@@ -2,18 +2,18 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_phase: 1
-current_phase_name: Walking Skeleton — Sim Clock & Radar Render Loop
+current_phase: 01
+current_phase_name: walking-skeleton-sim-clock-radar-render-loop
 status: executing
 stopped_at: Phase 1 UI-SPEC approved
-last_updated: "2026-07-04T21:46:45.360Z"
-last_activity: 2026-07-03
-last_activity_desc: Roadmap created, 27/27 v1 requirements mapped across 7 phases
+last_updated: "2026-07-05T09:26:32.226Z"
+last_activity: 2026-07-04
+last_activity_desc: Phase 01 execution started
 progress:
   total_phases: 7
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 5
+  completed_plans: 1
   percent: 0
 ---
 
@@ -24,14 +24,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-03)
 
 **Core value:** The player can work a full session — launch an aircraft off a SID, land another off the ILS, entirely through their own instructions — and the sim never lies about separation.
-**Current focus:** Phase 1 — Walking Skeleton (Sim Clock & Radar Render Loop)
+**Current focus:** Phase 01 — walking-skeleton-sim-clock-radar-render-loop
 
 ## Current Position
 
-Phase: 1 of 7 (Walking Skeleton — Sim Clock & Radar Render Loop)
-Plan: 0 of TBD in current phase
+Phase: 01 (walking-skeleton-sim-clock-radar-render-loop) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
-Last activity: 2026-07-03 — Roadmap created, 27/27 v1 requirements mapped across 7 phases
+Last activity: 2026-07-04 — Phase 01 execution started
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: N/A
 
 *Updated after each plan completion*
+| Phase 01 P01 | 15min | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -66,6 +67,8 @@ Recent decisions affecting current work:
 - Roadmap: Walking-Skeleton build order adopted from research — sim clock/render decoupling and procedure-vs-vector reconciliation front-loaded; phraseology/log placed last as purely observational
 - Roadmap: PROC-02/PROC-03 (vectoring override, ILS capture state) grouped into Phase 4 with instruction handling rather than Phase 3, so their success criteria are observable through the actual player-facing panel rather than a dev harness
 - Roadmap: RADAR-02 (datablock assigned-instruction info) grouped into Phase 4 since instructions must exist before "assigned info" is meaningful
+- [Phase 01]: Used version ranges (pygame-ce>=2.5,<3.0, pydantic>=2.13,<3.0, pytest>=8.0) rather than exact pins so pip resolves the true current release
+- [Phase 01]: Bootstrapped pip via the official PyPA get-pip.py script (with python -m venv --without-pip) rather than sudo apt install python3.14-venv, since the sandbox has no non-interactive sudo
 
 ### Pending Todos
 
@@ -86,6 +89,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-04T18:35:42.848Z
+Last session: 2026-07-05T09:25:09.813Z
 Stopped at: Phase 1 UI-SPEC approved
 Resume file: .planning/phases/01-walking-skeleton-sim-clock-radar-render-loop/01-UI-SPEC.md

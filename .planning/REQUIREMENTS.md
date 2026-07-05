@@ -11,7 +11,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **CORE-01**: Simulation advances on a fixed-timestep clock (1-4Hz) fully decoupled from the 60fps render loop
 - [ ] **CORE-02**: Sim clock caps the maximum ticks processed per render frame, so a stall degrades gracefully instead of freezing or jumping ("spiral of death")
-- [ ] **CORE-03**: Render layer reads current aircraft state each frame without ever mutating it
+- [x] **CORE-03**: Render layer reads current aircraft state each frame without ever mutating it
 
 ### Radar Display
 
@@ -106,7 +106,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | CORE-01 | Phase 1 | Pending |
 | CORE-02 | Phase 1 | Pending |
-| CORE-03 | Phase 1 | Pending |
+| CORE-03 | Phase 1 | Complete |
 | RADAR-01 | Phase 1 | Pending |
 | RADAR-03 | Phase 1 | Pending |
 | NAV-01 | Phase 2 | Pending |
@@ -133,6 +133,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMM-02 | Phase 7 | Pending |
 
 **Coverage:**
+
 - v1 requirements: 27 total
 - Mapped to phases: 27
 - Unmapped: 0 ✓
