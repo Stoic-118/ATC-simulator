@@ -1,11 +1,13 @@
 """Radar canvas drawing: static background (rings/sector lines) and the
 live aircraft symbol (trail, heading vector, dot).
 
-This module reads only frozen AircraftSnapshot values produced by
-atc_sim.sim.interpolation — it never imports or calls a mutator from
-atc_sim.sim.aircraft (RADAR-03/CORE-03's read-only render path). The trail
-deque is owned and appended-to by app.py once per sim tick; this module
-only reads it.
+This module reads only a frozen render_state (an AircraftSnapshot-shaped
+object produced by atc_sim.sim.interpolation, read via duck typing — this
+module deliberately avoids importing atc_sim.sim.* at all, so app.py stays
+the only module importing BOTH pygame and atc_sim.sim.*). It never imports
+or calls a mutator from atc_sim.sim.aircraft (RADAR-03/CORE-03's read-only
+render path). The trail deque is owned and appended-to by app.py once per
+sim tick; this module only reads it.
 
 src/atc_sim/render/ legitimately imports pygame — the sim/render boundary
 guard (tests/test_boundary.py) only scans src/atc_sim/sim/.
@@ -13,6 +15,7 @@ guard (tests/test_boundary.py) only scans src/atc_sim/sim/.
 
 import math
 from collections import deque
+from typing import Protocol
 
 import pygame
 
@@ -24,7 +27,17 @@ from atc_sim.render.window import (
     TRAIL_COLOR,
     VECTOR_COLOR,
 )
-from atc_sim.sim.interpolation import AircraftSnapshot
+
+
+class RenderState(Protocol):
+    """Structural type for a frozen AircraftSnapshot — avoids a runtime
+    import of atc_sim.sim.interpolation so this pygame-importing module
+    never also imports atc_sim.sim.* (app.py is the sole exception)."""
+
+    x: float
+    y: float
+    heading_deg: float
+
 
 CENTER = (640, 400)              # canvas center, fixed 1280x800 window (D-03)
 RING_STEP_PX = 80
@@ -84,7 +97,7 @@ def draw_aircraft(
 def draw_frame(
     screen: pygame.Surface,
     background: pygame.Surface,
-    render_state: AircraftSnapshot,
+    render_state: RenderState,
     trail: deque[tuple[float, float]],
 ) -> None:
     """Blits the cached background then draws the aircraft from a frozen
