@@ -1,10 +1,14 @@
 """Authoritative Aircraft state model and its Phase-1 motion.
 
 D-02: simplest possible motion for the walking skeleton — a single
-aircraft flies a straight line at a fixed heading and wraps around the
-canvas edge (no real navdata/lat-lon yet). `sim_step` mutates the one
-authoritative Aircraft instance and must only ever be called from
-SimClock.advance()'s on_tick callback — never from the render loop.
+aircraft flies a straight line at a fixed heading (no real navdata/lat-lon
+yet). `sim_step` mutates the one authoritative Aircraft instance and must
+only ever be called from SimClock.advance()'s on_tick callback — never
+from the render loop.
+
+Phase 2 (Pitfall A): the Phase-1 canvas-edge wrap-around was removed from
+`sim_step` — real-world-scale navdata paths replace it, so the aircraft
+now flies a straight, non-wrapping line.
 
 This module MUST NOT import pygame — it stays headlessly testable via
 pytest with no display, enforced by tests/test_boundary.py.
@@ -28,8 +32,13 @@ class Aircraft(BaseModel):
 
     @classmethod
     def spawn_default(cls) -> "Aircraft":
-        # D-02: simplest possible motion — straight line, fixed heading, wraps at edge
-        return cls(x=0.0, y=CANVAS_HEIGHT / 2, heading_deg=90.0, speed_px_per_sec=60.0)
+        # Phase 2: spawn at the radar center (CANVAS_WIDTH/2, CANVAS_HEIGHT/2 =
+        # pixel (640, 400)), which is the runway-threshold projection origin
+        # per navdata/geo.py's ORIGIN — so the placeholder aircraft starts
+        # within the real EGGW geography instead of a canvas corner. Still
+        # Phase-1-level placeholder motion (straight line, fixed heading,
+        # no procedure following).
+        return cls(x=CANVAS_WIDTH / 2, y=CANVAS_HEIGHT / 2, heading_deg=90.0, speed_px_per_sec=60.0)
 
 
 def sim_step(aircraft: Aircraft, dt: float) -> None:
@@ -41,13 +50,6 @@ def sim_step(aircraft: Aircraft, dt: float) -> None:
     rad = math.radians(aircraft.heading_deg)
     aircraft.x += math.sin(rad) * aircraft.speed_px_per_sec * dt
     aircraft.y -= math.cos(rad) * aircraft.speed_px_per_sec * dt
-
-    # D-02: wrap at canvas edge (simplest possible — no real navdata yet)
-    if aircraft.x > CANVAS_WIDTH:
-        aircraft.x -= CANVAS_WIDTH
-    elif aircraft.x < 0:
-        aircraft.x += CANVAS_WIDTH
-    if aircraft.y > CANVAS_HEIGHT:
-        aircraft.y -= CANVAS_HEIGHT
-    elif aircraft.y < 0:
-        aircraft.y += CANVAS_HEIGHT
+    # Phase 2 (Pitfall A): the D-02 canvas-edge wrap-around was removed here —
+    # real-world-scale navdata paths replace it, so motion is now a pure,
+    # non-wrapping straight line.

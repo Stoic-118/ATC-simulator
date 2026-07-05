@@ -88,11 +88,13 @@ def test_sim_step_moves_along_heading():
     assert aircraft.y == pytest.approx(200.0, abs=1e-6)
 
 
-def test_sim_step_wraps_at_edge():
+def test_sim_step_does_not_wrap_at_edge():
+    # Phase 2 (Pitfall A): the canvas-edge wrap was removed — an aircraft
+    # crossing the edge keeps its straight-line position instead of
+    # wrapping back around to a small x.
     aircraft = Aircraft(x=CANVAS_WIDTH - 5.0, y=200.0, heading_deg=90.0, speed_px_per_sec=60.0)
     sim_step(aircraft, dt=0.5)
-    assert 0.0 <= aircraft.x < CANVAS_WIDTH
-    assert aircraft.x < 100.0
+    assert aircraft.x > CANVAS_WIDTH
 
 
 def test_aircraft_rejects_bad_fields():
