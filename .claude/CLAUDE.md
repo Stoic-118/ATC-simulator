@@ -11,7 +11,7 @@ A full-fidelity, single-airport air traffic control simulator: a native Python +
 ### Constraints
 
 - **Tech stack**: Python 3.12+, Pygame, pygame_gui/hand-rolled UI, asyncio/fixed-timestep sim clock, geographiclib or pyproj, Pydantic — Why: explicit user decision; must be a native desktop app with its own rendering loop, no browser/HTML anywhere in the stack
-- **Scope**: single airport (EGGW), single runway direction (26), IFR only for v1 — Why: keeps procedure/ILS logic surface area small enough to validate the core instruction-and-separation loop before expanding
+- **Scope**: single airport (EGGW), single runway direction (25), IFR only for v1 — Why: keeps procedure/ILS logic surface area small enough to validate the core instruction-and-separation loop before expanding
 - **Fidelity**: simplified per-aircraft-type performance profiles, not BADA-style tables or full physics — Why: feels real without a heavy modeling lift blocking early phases
 - **Traffic generation**: scripted scenario file, not a randomized generator, for v1 — Why: repeatable, deterministic runs are needed while separation/instruction logic is still being debugged
 - **Separation enforcement**: alerts (STCA-style), not automatic blocking — Why: matches real-world ATC — the controller decides, the sim only warns

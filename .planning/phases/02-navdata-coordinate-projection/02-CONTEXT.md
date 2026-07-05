@@ -6,7 +6,9 @@
 <domain>
 ## Phase Boundary
 
-Replace Phase 1's throwaway straight-line-and-wrap test aircraft path with real EGGW runway-26 geography: a real runway threshold/extended centerline, one real published SID, one real published STAR, all rendered through a cosine-corrected lat/lon-to-pixel projection that will be shared with the future separation-check math. Heading/course/track/bearing become distinct named fields with magnetic variation applied at exactly one defined point. No performance modeling or flight-phase FSM (Phase 3), no procedure-following logic that actually flies the SID/STAR (Phase 3/4), no instruction handling (Phase 4). Requirements covered: NAV-01, NAV-02, NAV-03, RADAR-04.
+Replace Phase 1's throwaway straight-line-and-wrap test aircraft path with real EGGW runway-25 geography: a real runway threshold/extended centerline, one real published SID, one real published STAR, all rendered through a cosine-corrected lat/lon-to-pixel projection that will be shared with the future separation-check math. Heading/course/track/bearing become distinct named fields with magnetic variation applied at exactly one defined point. No performance modeling or flight-phase FSM (Phase 3), no procedure-following logic that actually flies the SID/STAR (Phase 3/4), no instruction handling (Phase 4). Requirements covered: NAV-01, NAV-02, NAV-03, RADAR-04.
+
+**Runway identifier note:** EGGW's runway was redesignated from 08/26 to 07/25 in a May 2020 magnetic-drift realignment — same physical runway/threshold/ILS, relabeled identifier. This phase (and the project going forward) uses "25," matching current real-world charts. All docs (PROJECT.md, ROADMAP.md, REQUIREMENTS.md, CLAUDE.md) were updated accordingly during this discussion.
 
 </domain>
 
@@ -17,8 +19,8 @@ Replace Phase 1's throwaway straight-line-and-wrap test aircraft path with real 
 - **D-01:** Named SID/STAR fixes render as a small marker plus the fix's 5-letter name in text next to it — matches real radar scopes/charts and makes it easy to visually confirm each fix is in the correct position. Follows the existing Phase 1 dark-flat modern-EFIS palette (D-01 from Phase 1 CONTEXT.md) for marker/text color rather than introducing a new visual language.
 
 ### Navdata Fidelity
-- **D-02:** The one SID and one STAR use real published EGGW runway-26 fix names and coordinates, hand-typed from public chart sources — not invented/simplified placeholders. This is still hand-authored (not a live AIRAC feed), consistent with the project's existing "no live navdata ingestion" constraint (see PROJECT.md Out of Scope), but extends the project's real-EGGW commitment down to procedure-level detail.
-- **D-03:** Which specific SID and STAR to model is left to the Phase 2 researcher to pick during research — the user does not have a specific procedure name locked in. The researcher should choose one well-documented, representative real EGGW runway-26 SID and one real EGGW runway-26 STAR from public sources.
+- **D-02:** The one SID and one STAR use real published EGGW runway-25 fix names and coordinates, hand-typed from public chart sources — not invented/simplified placeholders. This is still hand-authored (not a live AIRAC feed), consistent with the project's existing "no live navdata ingestion" constraint (see PROJECT.md Out of Scope), but extends the project's real-EGGW commitment down to procedure-level detail.
+- **D-03:** Which specific SID and STAR to model is left to the Phase 2 researcher to pick during research — the user does not have a specific procedure name locked in. The researcher should choose one well-documented, representative real EGGW runway-25 SID and one real EGGW runway-25 STAR from public sources.
 
 ### Procedure Path Rendering
 - **D-04:** SID/STAR fixes are connected by a thin line in sequence (a visible procedure track), not just isolated markers. Gives Phase 3's procedure-following logic a visual anchor and makes the departure/arrival path readable at a glance. Line style should stay within the existing thin-line, low-clutter EFIS aesthetic established in Phase 1's rings/sector lines.

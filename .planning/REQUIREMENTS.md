@@ -22,8 +22,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Navdata
 
-- [ ] **NAV-01**: Airport navdata models London Luton (EGGW), runway 26 only — threshold, heading, and ILS parameters (localizer course, 3.0° glideslope, CAT I decision height)
-- [ ] **NAV-02**: One SID and one STAR for runway 26 are modeled with named fixes/waypoints and altitude/speed restrictions
+- [ ] **NAV-01**: Airport navdata models London Luton (EGGW), runway 25 only — threshold, heading, and ILS parameters (localizer course, 3.0° glideslope, CAT I decision height)
+- [ ] **NAV-02**: One SID and one STAR for runway 25 are modeled with named fixes/waypoints and altitude/speed restrictions
 - [ ] **NAV-03**: Navdata models distinguish heading/course/track/bearing as separate named fields and apply magnetic variation at exactly one defined boundary
 
 ### Aircraft Performance & State

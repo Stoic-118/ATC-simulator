@@ -18,8 +18,8 @@ The player can work a full session — launch an aircraft off a SID, land anothe
 ### Active
 
 - [ ] Radar canvas: aircraft datablocks (callsign/altitude/speed/assigned info) — deferred to Phase 4 (needs instructions to exist first for "assigned info" to be meaningful)
-- [ ] Navdata for one real airport (London Luton, EGGW), one runway direction (26) only — no runway changes, no wind-driven configuration switching
-- [ ] One SID and one STAR, off/into runway 26, with realistic ILS parameters (localizer course, 3.0° glideslope, CAT I decision height)
+- [ ] Navdata for one real airport (London Luton, EGGW), one runway direction (25) only — no runway changes, no wind-driven configuration switching
+- [ ] One SID and one STAR, off/into runway 25, with realistic ILS parameters (localizer course, 3.0° glideslope, CAT I decision height)
 - [ ] IFR traffic only for v1 (VFR deferred to v2+)
 - [ ] Simplified per-aircraft-type performance profiles (climb/descent rate, speed envelope, turn rate as a function of bank angle and groundspeed) for a small fleet of 3–5 aircraft types
 - [ ] Departure flow: spawn at stand → abstracted taxi (timer-based, no ground pathfinding) → takeoff → climb via the one SID → exit
@@ -50,7 +50,7 @@ The player can work a full session — launch an aircraft off a SID, land anothe
 
 - **Motivation**: Personal deep-dive project. The goal is to build something ambitious and learn simulation/systems design along the way — not a product for external users (yet), so no Business Context section.
 - **Stack decisions** (see Constraints): Python 3.12+, Pygame for window/rendering/input, pygame_gui or hand-rolled UI for panels (flight strip bay, comms/instruction log, frequency box), asyncio or fixed-timestep loop for the sim clock, geographiclib/pyproj for nav math, Pydantic for data models. No HTML/web rendering anywhere in the stack.
-- **Airport**: London Luton (EGGW), runway 26 — real ILS CAT I approach, real fix/procedure naming conventions, simplified to one direction/one SID/one STAR for v1. Navdata is hand-authored, not sourced from live AIRAC.
+- **Airport**: London Luton (EGGW), runway 25 — real ILS CAT I approach, real fix/procedure naming conventions, simplified to one direction/one SID/one STAR for v1. Navdata is hand-authored, not sourced from live AIRAC. (Note: this runway was redesignated from "26" to "25" in a May 2020 magnetic-drift realignment — same physical runway/threshold/ILS, relabeled identifier. See Key Decisions.)
 - **Platform**: Developed and run on the user's own machine for now. Cross-platform Pygame behavior is a bonus, not a driver; PyInstaller .exe packaging is an explicit later phase.
 - **Timeline**: Open-ended — no external deadline. Prioritize building it right over building it fast.
 - **v1 bar** (from questioning): a full session where an aircraft launches, flies the SID, and another lands off the ILS, entirely through the player's own instructions, without the sim lying about separation. Everything that doesn't serve proving that loop is deferred.
@@ -58,7 +58,7 @@ The player can work a full session — launch an aircraft off a SID, land anothe
 ## Constraints
 
 - **Tech stack**: Python 3.12+, Pygame, pygame_gui/hand-rolled UI, asyncio/fixed-timestep sim clock, geographiclib or pyproj, Pydantic — Why: explicit user decision; must be a native desktop app with its own rendering loop, no browser/HTML anywhere in the stack
-- **Scope**: single airport (EGGW), single runway direction (26), IFR only for v1 — Why: keeps procedure/ILS logic surface area small enough to validate the core instruction-and-separation loop before expanding
+- **Scope**: single airport (EGGW), single runway direction (25), IFR only for v1 — Why: keeps procedure/ILS logic surface area small enough to validate the core instruction-and-separation loop before expanding
 - **Fidelity**: simplified per-aircraft-type performance profiles, not BADA-style tables or full physics — Why: feels real without a heavy modeling lift blocking early phases
 - **Traffic generation**: scripted scenario file, not a randomized generator, for v1 — Why: repeatable, deterministic runs are needed while separation/instruction logic is still being debugged
 - **Separation enforcement**: alerts (STCA-style), not automatic blocking — Why: matches real-world ATC — the controller decides, the sim only warns
@@ -70,8 +70,9 @@ The player can work a full session — launch an aircraft off a SID, land anothe
 | Click + command-panel input over typed shorthand | Mouse-first matches real radar consoles; typed shorthand could be added later as an accelerator | — Pending |
 | Simplified performance profiles over BADA tables or full physics | Feels real without blocking v1 on heavy aircraft-performance modeling | — Pending |
 | Scripted scenario file over randomized traffic generator (v1) | Debugging separation/instruction logic needs repeatable, deterministic runs | — Pending |
-| Real airport (London Luton, EGGW, runway 26) over fictional | Real-world-plausible navdata/ILS parameters without live AIRAC complexity | — Pending |
+| Real airport (London Luton, EGGW, runway 25) over fictional | Real-world-plausible navdata/ILS parameters without live AIRAC complexity | — Pending |
 | One runway direction, one SID, one STAR for v1 | Minimizes procedure/ILS logic surface area to prove the core loop fast | — Pending |
+| Runway identifier updated "26" → "25" (Phase 2 research) | EGGW's runway was redesignated 08/26 → 07/25 in a May 2020 magnetic-drift realignment — same physical runway/threshold/ILS, relabeled identifier. Renamed throughout for real-world accuracy rather than keeping the outdated label, consistent with "the sim never lies." | Validated in Phase 2 research |
 | IFR-only for v1, VFR deferred to v2+ | VFR is a second state machine and interaction model — the single biggest cut to reach v1 faster | — Pending |
 | Separation surfaced as alerts, not auto-enforced | A controller game with no separation consequence isn't an ATC game — but the controller must stay in control | — Pending |
 

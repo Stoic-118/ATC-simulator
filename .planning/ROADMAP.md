@@ -14,7 +14,7 @@ The build starts with the single riskiest architectural bet — a fixed-timestep
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Walking Skeleton — Sim Clock & Radar Render Loop** - A fixed-timestep sim clock drives one aircraft, decoupled from a 60fps render loop, on a bare radar canvas (completed 2026-07-05)
-- [ ] **Phase 2: Navdata & Coordinate Projection** - Real EGGW runway-26 navdata and a cosine-corrected lat/lon-to-pixel projection shared with future separation math
+- [ ] **Phase 2: Navdata & Coordinate Projection** - Real EGGW runway-25 navdata and a cosine-corrected lat/lon-to-pixel projection shared with future separation math
 - [ ] **Phase 3: Aircraft Performance, Flight-Phase FSM & Procedure Following** - Typed performance profiles and an explicit phase state machine let aircraft fly a full departure/arrival via the SID/STAR unattended
 - [ ] **Phase 4: Instruction Handling — Click, Panel, Vectoring & ILS Capture** - Player selects aircraft and issues real ATC instructions that override procedure-following; ILS capture is one well-defined guidance state
 - [ ] **Phase 5: Separation & Conflict Detection (STCA-style)** - Every aircraft pair is checked each tick against standard minima and violations surface as alerts, never blocks
@@ -57,13 +57,13 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 ### Phase 2: Navdata & Coordinate Projection
 
-**Goal**: The radar displays real EGGW navdata (runway 26, one SID, one STAR) through a cosine-corrected lat/lon-to-pixel projection shared with the future separation-check math, with heading/course/track/bearing modeled as distinct fields.
+**Goal**: The radar displays real EGGW navdata (runway 25, one SID, one STAR) through a cosine-corrected lat/lon-to-pixel projection shared with the future separation-check math, with heading/course/track/bearing modeled as distinct fields.
 **Mode:** mvp
 **Depends on**: Phase 1
 **Requirements**: NAV-01, NAV-02, NAV-03, RADAR-04
 **Success Criteria** (what must be TRUE):
 
-  1. The radar canvas shows the real EGGW runway 26 threshold and extended centerline, correctly positioned by lat/lon
+  1. The radar canvas shows the real EGGW runway 25 threshold and extended centerline, correctly positioned by lat/lon
   2. One SID's and one STAR's named fixes/waypoints appear on the radar at their correct real-world positions, each with its modeled altitude/speed restrictions
   3. Range rings render as true circles (not ellipses) at any radar pan/zoom, confirming the cosine-corrected projection
   4. Heading, course, bearing, and track are distinct named fields with magnetic variation applied at exactly one defined point — displayed procedure courses match real-world EGGW SID/STAR charted values
