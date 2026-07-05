@@ -18,7 +18,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **RADAR-01**: Player views a plan-view radar canvas with range rings and sector reference lines
 - [ ] **RADAR-02**: Each aircraft renders as a datablock showing callsign, altitude, speed, and assigned instruction info
 - [x] **RADAR-03**: Each aircraft shows a heading vector line and recent trail history dots
-- [ ] **RADAR-04**: Radar canvas uses a cosine-corrected lat/lon-to-pixel projection shared with the separation-check math, so displayed positions never visually disagree with enforced separation
+- [x] **RADAR-04**: Radar canvas uses a cosine-corrected lat/lon-to-pixel projection shared with the separation-check math, so displayed positions never visually disagree with enforced separation
 
 ### Navdata
 
@@ -112,7 +112,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NAV-01 | Phase 2 | Pending |
 | NAV-02 | Phase 2 | Pending |
 | NAV-03 | Phase 2 | Pending |
-| RADAR-04 | Phase 2 | Pending |
+| RADAR-04 | Phase 2 | Complete |
 | PERF-01 | Phase 3 | Pending |
 | PERF-02 | Phase 3 | Pending |
 | PERF-03 | Phase 3 | Pending |
