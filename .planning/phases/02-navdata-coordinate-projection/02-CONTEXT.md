@@ -20,7 +20,7 @@ Replace Phase 1's throwaway straight-line-and-wrap test aircraft path with real 
 
 ### Navdata Fidelity
 - **D-02:** The one SID and one STAR use real published EGGW runway-25 fix names and coordinates, hand-typed from public chart sources — not invented/simplified placeholders. This is still hand-authored (not a live AIRAC feed), consistent with the project's existing "no live navdata ingestion" constraint (see PROJECT.md Out of Scope), but extends the project's real-EGGW commitment down to procedure-level detail.
-- **D-03:** Which specific SID and STAR to model is left to the Phase 2 researcher to pick during research — the user does not have a specific procedure name locked in. The researcher should choose one well-documented, representative real EGGW runway-25 SID and one real EGGW runway-25 STAR from public sources.
+- **D-03 [informational]:** Which specific SID and STAR to model is left to the Phase 2 researcher to pick during research — the user does not have a specific procedure name locked in. The researcher should choose one well-documented, representative real EGGW runway-25 SID and one real EGGW runway-25 STAR from public sources.
 
 ### Procedure Path Rendering
 - **D-04:** SID/STAR fixes are connected by a thin line in sequence (a visible procedure track), not just isolated markers. Gives Phase 3's procedure-following logic a visual anchor and makes the departure/arrival path readable at a glance. Line style should stay within the existing thin-line, low-clutter EFIS aesthetic established in Phase 1's rings/sector lines.
