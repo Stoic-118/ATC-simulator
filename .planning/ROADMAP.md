@@ -37,7 +37,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. A moving aircraft renders as a dot with a heading vector line and a trail of recent position dots, and its on-screen position only ever reflects sim-tick state — never a value altered by the render pass itself
   5. README.md's Installation section is updated with real setup/run instructions (venv, dependency install, how to launch the walking skeleton), replacing the "not available yet" placeholder
 
-**Plans**: 3/5 plans executed
+**Plans**: 4/5 plans executed
 **Wave 1**
 
 - [x] 01-01-PLAN.md — Scaffold src-layout package, pyproject.toml, venv/deps, sim/render boundary guard
@@ -49,7 +49,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 01-04-PLAN.md — Radar canvas (rings/sector lines/dot/vector/trail) + app.py main loop (RADAR-01/03)
+- [x] 01-04-PLAN.md — Radar canvas (rings/sector lines/dot/vector/trail) + app.py main loop (RADAR-01/03)
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
@@ -153,7 +153,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Walking Skeleton — Sim Clock & Radar Render Loop | 3/5 | In Progress|  |
+| 1. Walking Skeleton — Sim Clock & Radar Render Loop | 4/5 | In Progress|  |
 | 2. Navdata & Coordinate Projection | 0/TBD | Not started | - |
 | 3. Aircraft Performance, Flight-Phase FSM & Procedure Following | 0/TBD | Not started | - |
 | 4. Instruction Handling — Click, Panel, Vectoring & ILS Capture | 0/TBD | Not started | - |
