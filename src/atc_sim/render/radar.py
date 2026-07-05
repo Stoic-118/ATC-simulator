@@ -19,10 +19,13 @@ from typing import Protocol
 
 import pygame
 
+from atc_sim.navdata.geo import PX_PER_NM, project_to_local_xy_nm
+from atc_sim.navdata.models import Runway
 from atc_sim.render.window import (
     AIRCRAFT_COLOR,
     BG_COLOR,
     RING_COLOR,
+    RUNWAY_COLOR,
     SECTOR_COLOR,
     TRAIL_COLOR,
     VECTOR_COLOR,
@@ -48,10 +51,45 @@ TRAIL_MAX_LEN = 8                # number of past sim-tick positions retained
 AIRCRAFT_RADIUS_PX = 5
 VECTOR_LENGTH_PX = 40
 
+RUNWAY_THRESHOLD_RADIUS_PX = 4
+RUNWAY_CENTERLINE_LENGTH_NM = 10.0   # extended approach centerline, in nm
 
-def build_static_background(size: tuple[int, int]) -> pygame.Surface:
+
+def world_to_screen(
+    x_nm: float, y_nm: float, center: tuple[int, int], px_per_nm: float
+) -> tuple[int, int]:
+    """Final nm -> pixel conversion (+y-flip: north = up = smaller screen
+    y). Reused by every static navdata element (runway, fixes, procedures)
+    on top of the shared navdata/geo.py projection."""
+    screen_x = center[0] + x_nm * px_per_nm
+    screen_y = center[1] - y_nm * px_per_nm
+    return int(screen_x), int(screen_y)
+
+
+def _draw_runway(surface: pygame.Surface, runway: Runway) -> None:
+    """Draws the runway threshold as a dot and the extended approach
+    centerline as a thin line from the threshold, along the reciprocal of
+    the runway's magnetic heading (the direction approaching aircraft fly
+    in from). Uses the same sin=x/-cos=y compass convention as
+    draw_aircraft's heading vector and navdata/geo.py's projection."""
+    threshold_x_nm, threshold_y_nm = project_to_local_xy_nm(
+        runway.threshold_lat, runway.threshold_lon
+    )
+    threshold_px = world_to_screen(threshold_x_nm, threshold_y_nm, CENTER, PX_PER_NM)
+
+    reciprocal_rad = math.radians((runway.heading_deg_mag + 180.0) % 360.0)
+    centerline_end_x_nm = threshold_x_nm + math.sin(reciprocal_rad) * RUNWAY_CENTERLINE_LENGTH_NM
+    centerline_end_y_nm = threshold_y_nm + math.cos(reciprocal_rad) * RUNWAY_CENTERLINE_LENGTH_NM
+    centerline_end_px = world_to_screen(centerline_end_x_nm, centerline_end_y_nm, CENTER, PX_PER_NM)
+
+    pygame.draw.aaline(surface, RUNWAY_COLOR, threshold_px, centerline_end_px)
+    pygame.draw.circle(surface, RUNWAY_COLOR, threshold_px, RUNWAY_THRESHOLD_RADIUS_PX)
+
+
+def build_static_background(size: tuple[int, int], runway: Runway) -> pygame.Surface:
     """Rendered once at startup and blitted each frame — range rings/sector
-    lines never change, so don't redraw primitives every frame."""
+    lines/runway symbol never change, so don't redraw primitives every
+    frame."""
     surface = pygame.Surface(size)
     surface.fill(BG_COLOR)
 
@@ -65,6 +103,8 @@ def build_static_background(size: tuple[int, int]) -> pygame.Surface:
             CENTER[1] - math.cos(angle) * RING_STEP_PX * NUM_RINGS,
         )
         pygame.draw.aaline(surface, SECTOR_COLOR, CENTER, end)
+
+    _draw_runway(surface, runway)
 
     return surface
 

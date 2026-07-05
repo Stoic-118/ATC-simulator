@@ -24,6 +24,7 @@ SECTOR_COLOR = (40, 60, 68)
 AIRCRAFT_COLOR = (0, 220, 220)   # cyan
 TRAIL_COLOR = (0, 140, 140)
 VECTOR_COLOR = (230, 240, 240)   # near-white
+RUNWAY_COLOR = (180, 190, 195)   # muted white/grey, Phase 2 runway symbol
 
 
 def create_window() -> pygame.Surface:
