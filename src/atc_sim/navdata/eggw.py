@@ -14,7 +14,15 @@ This module MUST NOT import pygame — it stays headlessly testable via
 pytest with no display, enforced by tests/test_boundary.py.
 """
 
-from atc_sim.navdata.models import ILS, Runway
+from atc_sim.navdata.models import (
+    ILS,
+    AltitudeRestriction,
+    Fix,
+    Procedure,
+    ProcedureLeg,
+    Runway,
+    SpeedRestriction,
+)
 
 # RWY 25 localizer — course is calibrated to the extended runway centerline
 # and closely matches the charted runway QFU below (254.40).
@@ -47,4 +55,72 @@ EGGW_RUNWAY = Runway(
     threshold_lon=-0.354486,
     heading_deg_mag=254.4,
     ils=_EGGW_ILS,
+)
+
+# --- OLNEY 2B SID (RWY 25) ------------------------------------------------
+# [VERIFIED: UK AIP AD 2-EGGW-6-5, chart effective 25 Feb 2020, live PDF
+# fetch]. Route: climb straight ahead to 500ft AAL, turn left to intercept
+# BNN VOR radial 032; at BNN D7 (7nm DME) turn right onto HEN NDB inbound
+# QDM 256; at BNN VOR radial 004 turn right onto BNN VOR radial 345 direct
+# OLNEY.
+#
+# Simplification note (02-RESEARCH.md "Selected Procedures" / Simplification
+# note): the chart's stepped DME climb (4000ft by BNN D6, 5000ft by D9,
+# 6000ft by D15) is collapsed here to a single at-or-above 6000ft
+# restriction on the final BNN -> OLNEY leg -- the real terminal value of
+# that stepped profile, not an invented number.
+#
+# Pitfall B: HEN is a real, unrestricted intercept/turn point on this chart
+# -- its altitude_restriction is deliberately left None, not fabricated.
+_BNN = Fix(name="BNN", lat=51.726111, lon=-0.549722)  # 51°43'34"N, 000°32'59"W
+_HEN = Fix(name="HEN", lat=51.759722, lon=-0.790278)  # 51°45'35"N, 000°47'25"W
+_OLNEY_FIX = Fix(name="OLNEY", lat=52.127778, lon=-0.734167)  # 52°07'40"N, 000°44'03"W
+
+OLNEY_2B_SID = Procedure(
+    name="OLNEY 2B",
+    kind="SID",
+    runway="25",
+    legs=[
+        ProcedureLeg(fix=_BNN),
+        ProcedureLeg(
+            fix=_HEN,
+            course_deg_mag=256.0,  # HEN NDB inbound QDM 256 [VERIFIED: chart]
+            altitude_restriction=None,  # Pitfall B: no charted restriction at HEN
+        ),
+        ProcedureLeg(
+            fix=_OLNEY_FIX,
+            course_deg_mag=345.0,  # BNN VOR radial 345 direct OLNEY [VERIFIED: chart]
+            altitude_restriction=AltitudeRestriction(kind="at_or_above", altitude_ft=6000),
+        ),
+    ],
+)
+
+# --- DET 2A STAR (RWY 25) --------------------------------------------------
+# [VERIFIED: UK AIP AD 2-EGGW-7-6 "LOGAN 2A DET 2A" combined chart, AERO
+# INFO DATE 02 DEC 2025, live PDF fetch -- the current, in-force chart].
+# Route via ATS route N57: DET -> LOFFO -> ABBOT. Levels: FL170 at DET,
+# FL080 at ABBOT.
+_DET_FIX = Fix(name="DET", lat=51.304003, lon=0.597275)  # 51°18'14.41"N, 000°35'50.19"E
+_LOFFO = Fix(name="LOFFO", lat=51.836667, lon=0.598992)  # 51°50'12.00"N, 000°35'56.37"E
+_ABBOT = Fix(name="ABBOT", lat=52.016111, lon=0.599581)  # 52°00'58.00"N, 000°35'58.49"E
+
+DET_2A_STAR = Procedure(
+    name="DET 2A",
+    kind="STAR",
+    runway="25",
+    legs=[
+        ProcedureLeg(
+            fix=_DET_FIX,
+            altitude_restriction=AltitudeRestriction(kind="at", altitude_ft=17000),  # FL170
+        ),
+        ProcedureLeg(
+            fix=_LOFFO,
+            speed_restriction=SpeedRestriction(kind="max", speed_kt=250),
+        ),
+        ProcedureLeg(
+            fix=_ABBOT,
+            altitude_restriction=AltitudeRestriction(kind="at", altitude_ft=8000),  # FL080
+            speed_restriction=SpeedRestriction(kind="max", speed_kt=220),
+        ),
+    ],
 )
