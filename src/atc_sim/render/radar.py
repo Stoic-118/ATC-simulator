@@ -20,10 +20,13 @@ from typing import Protocol
 import pygame
 
 from atc_sim.navdata.geo import PX_PER_NM, project_to_local_xy_nm
-from atc_sim.navdata.models import Runway
+from atc_sim.navdata.models import Procedure, Runway
 from atc_sim.render.window import (
     AIRCRAFT_COLOR,
     BG_COLOR,
+    FIX_COLOR,
+    FIX_TEXT_COLOR,
+    PROCEDURE_LINE_COLOR,
     RING_COLOR,
     RUNWAY_COLOR,
     SECTOR_COLOR,
@@ -53,6 +56,24 @@ VECTOR_LENGTH_PX = 40
 
 RUNWAY_THRESHOLD_RADIUS_PX = 4
 RUNWAY_CENTERLINE_LENGTH_NM = 10.0   # extended approach centerline, in nm
+
+FIX_MARKER_RADIUS_PX = 3
+FIX_LABEL_OFFSET_PX = 6           # blit offset so text doesn't overlap the dot
+FIX_FONT_SIZE_PX = 14
+
+# Module-level fix-label font cache -- lazily created on first use (text
+# rendering is new to this codebase; pygame.font requires pygame.init() to
+# have already run, so this must not be created at import time). Follows
+# the same "compute once, reuse" philosophy as build_static_background's
+# cached surface.
+_FIX_FONT: pygame.font.Font | None = None
+
+
+def _get_fix_font() -> pygame.font.Font:
+    global _FIX_FONT
+    if _FIX_FONT is None:
+        _FIX_FONT = pygame.font.Font(None, FIX_FONT_SIZE_PX)
+    return _FIX_FONT
 
 
 def world_to_screen(
@@ -86,10 +107,39 @@ def _draw_runway(surface: pygame.Surface, runway: Runway) -> None:
     pygame.draw.circle(surface, RUNWAY_COLOR, threshold_px, RUNWAY_THRESHOLD_RADIUS_PX)
 
 
-def build_static_background(size: tuple[int, int], runway: Runway) -> pygame.Surface:
+def _draw_procedure(surface: pygame.Surface, procedure: Procedure) -> None:
+    """Draws a SID/STAR procedure's fixes and connecting track line.
+
+    Z-order (mirrors draw_aircraft's discipline): (1) the thin procedure
+    track line connecting consecutive fixes in leg order, (2) each fix
+    marker, (3) each fix's 5-letter name text on top -- so text is never
+    occluded by the line/marker. Does NOT render altitude/speed
+    restriction text: D-05 defers on-canvas restriction display to Phase 4
+    (RADAR-02); restrictions exist only as tested data on the leg models.
+    """
+    points_px = [
+        world_to_screen(*project_to_local_xy_nm(leg.fix.lat, leg.fix.lon), CENTER, PX_PER_NM)
+        for leg in procedure.legs
+    ]
+
+    if len(points_px) > 1:
+        pygame.draw.lines(surface, PROCEDURE_LINE_COLOR, False, points_px, width=1)
+
+    for point_px in points_px:
+        pygame.draw.circle(surface, FIX_COLOR, point_px, FIX_MARKER_RADIUS_PX)
+
+    font = _get_fix_font()
+    for leg, point_px in zip(procedure.legs, points_px):
+        label = font.render(leg.fix.name, True, FIX_TEXT_COLOR)
+        surface.blit(label, (point_px[0] + FIX_LABEL_OFFSET_PX, point_px[1] - FIX_LABEL_OFFSET_PX))
+
+
+def build_static_background(
+    size: tuple[int, int], runway: Runway, procedures: list[Procedure]
+) -> pygame.Surface:
     """Rendered once at startup and blitted each frame — range rings/sector
-    lines/runway symbol never change, so don't redraw primitives every
-    frame."""
+    lines/runway symbol/procedure fixes never change, so don't redraw
+    primitives every frame."""
     surface = pygame.Surface(size)
     surface.fill(BG_COLOR)
 
@@ -105,6 +155,8 @@ def build_static_background(size: tuple[int, int], runway: Runway) -> pygame.Sur
         pygame.draw.aaline(surface, SECTOR_COLOR, CENTER, end)
 
     _draw_runway(surface, runway)
+    for proc in procedures:
+        _draw_procedure(surface, proc)
 
     return surface
 

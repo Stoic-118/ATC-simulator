@@ -15,7 +15,7 @@ import collections
 
 import pygame
 
-from atc_sim.navdata.eggw import EGGW_RUNWAY
+from atc_sim.navdata.eggw import DET_2A_STAR, EGGW_RUNWAY, OLNEY_2B_SID
 from atc_sim.render.radar import TRAIL_MAX_LEN, build_static_background, draw_frame
 from atc_sim.render.window import FPS_CAP, create_window
 from atc_sim.sim.aircraft import Aircraft, sim_step
@@ -30,7 +30,7 @@ def main() -> None:
     sim_clock = SimClock()
     aircraft = Aircraft.spawn_default()
 
-    background = build_static_background(screen.get_size(), EGGW_RUNWAY)
+    background = build_static_background(screen.get_size(), EGGW_RUNWAY, [OLNEY_2B_SID, DET_2A_STAR])
     trail: collections.deque[tuple[float, float]] = collections.deque(maxlen=TRAIL_MAX_LEN)
 
     prev_state = capture_state(aircraft)

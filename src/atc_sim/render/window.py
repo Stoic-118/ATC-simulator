@@ -25,6 +25,9 @@ AIRCRAFT_COLOR = (0, 220, 220)   # cyan
 TRAIL_COLOR = (0, 140, 140)
 VECTOR_COLOR = (230, 240, 240)   # near-white
 RUNWAY_COLOR = (180, 190, 195)   # muted white/grey, Phase 2 runway symbol
+FIX_COLOR = (150, 200, 210)      # muted pale cyan, SID/STAR waypoint marker
+FIX_TEXT_COLOR = (170, 210, 215)  # pale cyan-white, fix 5-letter name label
+PROCEDURE_LINE_COLOR = (50, 80, 90)  # dim, thin low-clutter procedure track
 
 
 def create_window() -> pygame.Surface:
