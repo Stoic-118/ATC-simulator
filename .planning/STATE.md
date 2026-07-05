@@ -4,17 +4,17 @@ milestone: v1.0
 milestone_name: milestone
 current_phase: 01
 current_phase_name: walking-skeleton-sim-clock-radar-render-loop
-status: executing
+status: verifying
 stopped_at: Completed 01-04-PLAN.md
-last_updated: "2026-07-05T10:58:30.837Z"
+last_updated: "2026-07-05T11:16:41.345Z"
 last_activity: 2026-07-04
 last_activity_desc: Phase 01 execution started
 progress:
   total_phases: 7
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
-  completed_plans: 4
-  percent: 0
+  completed_plans: 5
+  percent: 14
 ---
 
 # Project State
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-07-03)
 
 Phase: 01 (walking-skeleton-sim-clock-radar-render-loop) — EXECUTING
 Plan: 5 of 5
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-07-04 — Phase 01 execution started
 
 Progress: [░░░░░░░░░░] 0%
@@ -59,6 +59,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P01-02 | 10min | 2 tasks | 2 files |
 | Phase 01 P03 | 10min | 2 tasks | 3 files |
 | Phase 01 P04 | 20min | 3 tasks | 4 files |
+| Phase 01 P05 | 15min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -75,6 +76,7 @@ Recent decisions affecting current work:
 - [Phase 01-02]: Rescaled MAX_FRAME_TIME from researched 0.25 to 5.0 - at 2Hz TICK_DT=0.5 the literal value made the ticks-per-frame cap unreachable, contradicting CORE-02's required stall-drop behavior
 - [Phase ?]: [Phase 01-03]: Copied RESEARCH.md's Aircraft/interpolation reference code verbatim after confirming no unit/scale mismatch existed (unlike 01-02's MAX_FRAME_TIME rescale)
 - [Phase 01]: [Phase 01-04]: Replaced render/radar.py's AircraftSnapshot type-hint import with a local typing.Protocol (RenderState) so app.py stays the sole module importing both pygame and atc_sim.sim.*
+- [Phase ?]: [Phase 01-05]: Documented both the atc-sim console script and python -m atc_sim.app as equivalent launch paths in README, matching pyproject.toml's [project.scripts] entry
 
 ### Pending Todos
 
@@ -95,6 +97,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-05T10:58:30.828Z
+Last session: 2026-07-05T11:12:55.041Z
 Stopped at: Completed 01-04-PLAN.md
 Resume file: None

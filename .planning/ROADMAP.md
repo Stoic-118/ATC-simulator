@@ -13,7 +13,7 @@ The build starts with the single riskiest architectural bet — a fixed-timestep
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Walking Skeleton — Sim Clock & Radar Render Loop** - A fixed-timestep sim clock drives one aircraft, decoupled from a 60fps render loop, on a bare radar canvas
+- [x] **Phase 1: Walking Skeleton — Sim Clock & Radar Render Loop** - A fixed-timestep sim clock drives one aircraft, decoupled from a 60fps render loop, on a bare radar canvas (completed 2026-07-05)
 - [ ] **Phase 2: Navdata & Coordinate Projection** - Real EGGW runway-26 navdata and a cosine-corrected lat/lon-to-pixel projection shared with future separation math
 - [ ] **Phase 3: Aircraft Performance, Flight-Phase FSM & Procedure Following** - Typed performance profiles and an explicit phase state machine let aircraft fly a full departure/arrival via the SID/STAR unattended
 - [ ] **Phase 4: Instruction Handling — Click, Panel, Vectoring & ILS Capture** - Player selects aircraft and issues real ATC instructions that override procedure-following; ILS capture is one well-defined guidance state
@@ -37,7 +37,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. A moving aircraft renders as a dot with a heading vector line and a trail of recent position dots, and its on-screen position only ever reflects sim-tick state — never a value altered by the render pass itself
   5. README.md's Installation section is updated with real setup/run instructions (venv, dependency install, how to launch the walking skeleton), replacing the "not available yet" placeholder
 
-**Plans**: 4/5 plans executed
+**Plans**: 5/5 plans complete
 **Wave 1**
 
 - [x] 01-01-PLAN.md — Scaffold src-layout package, pyproject.toml, venv/deps, sim/render boundary guard
@@ -53,7 +53,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 01-05-PLAN.md — README install/run instructions + walking-skeleton run verification
+- [x] 01-05-PLAN.md — README install/run instructions + walking-skeleton run verification
 
 ### Phase 2: Navdata & Coordinate Projection
 
@@ -153,7 +153,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Walking Skeleton — Sim Clock & Radar Render Loop | 4/5 | In Progress|  |
+| 1. Walking Skeleton — Sim Clock & Radar Render Loop | 5/5 | Complete   | 2026-07-05 |
 | 2. Navdata & Coordinate Projection | 0/TBD | Not started | - |
 | 3. Aircraft Performance, Flight-Phase FSM & Procedure Following | 0/TBD | Not started | - |
 | 4. Instruction Handling — Click, Panel, Vectoring & ILS Capture | 0/TBD | Not started | - |
