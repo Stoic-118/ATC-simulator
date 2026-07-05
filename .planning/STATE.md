@@ -6,14 +6,14 @@ current_phase: 01
 current_phase_name: walking-skeleton-sim-clock-radar-render-loop
 status: executing
 stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-07-05T10:24:53.392Z"
+last_updated: "2026-07-05T10:36:30.473Z"
 last_activity: 2026-07-04
 last_activity_desc: Phase 01 execution started
 progress:
   total_phases: 7
   completed_phases: 0
   total_plans: 5
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-07-03)
 ## Current Position
 
 Phase: 01 (walking-skeleton-sim-clock-radar-render-loop) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 Status: Ready to execute
 Last activity: 2026-07-04 — Phase 01 execution started
 
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01 P01 | 15min | 3 tasks | 6 files |
 | Phase 01 P01-02 | 10min | 2 tasks | 2 files |
+| Phase 01 P03 | 10min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,7 @@ Recent decisions affecting current work:
 - [Phase 01]: Used version ranges (pygame-ce>=2.5,<3.0, pydantic>=2.13,<3.0, pytest>=8.0) rather than exact pins so pip resolves the true current release
 - [Phase 01]: Bootstrapped pip via the official PyPA get-pip.py script (with python -m venv --without-pip) rather than sudo apt install python3.14-venv, since the sandbox has no non-interactive sudo
 - [Phase 01-02]: Rescaled MAX_FRAME_TIME from researched 0.25 to 5.0 - at 2Hz TICK_DT=0.5 the literal value made the ticks-per-frame cap unreachable, contradicting CORE-02's required stall-drop behavior
+- [Phase ?]: [Phase 01-03]: Copied RESEARCH.md's Aircraft/interpolation reference code verbatim after confirming no unit/scale mismatch existed (unlike 01-02's MAX_FRAME_TIME rescale)
 
 ### Pending Todos
 
@@ -91,6 +93,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-05T10:24:53.384Z
+Last session: 2026-07-05T10:32:45.103Z
 Stopped at: Completed 01-02-PLAN.md
 Resume file: None
