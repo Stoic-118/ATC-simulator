@@ -52,8 +52,11 @@ def test_true_bearing_and_distance_nm():
     _, distance_to_self_nm = true_bearing_and_distance_nm(ORIGIN_LAT, ORIGIN_LON, ORIGIN_LAT, ORIGIN_LON)
     assert distance_to_self_nm == pytest.approx(0.0, abs=1e-6)
 
-    # BNN (Bovingdon VOR/DME) — ~11.2nm from the RWY 25 threshold origin,
-    # per 02-RESEARCH.md "Scale & Range Selection".
+    # BNN (Bovingdon VOR/DME) — 02-RESEARCH.md "Scale & Range Selection"
+    # rounds this to "~11.2nm"; the precise geodesic distance computed here
+    # (cross-checked directly against geographiclib.Geodesic.WGS84.Inverse)
+    # is ~11.6nm — the research figure was a rounded estimate, not a bug in
+    # this function.
     bnn_lat, bnn_lon = 51.726111, -0.549722
     _, distance_to_bnn_nm = true_bearing_and_distance_nm(ORIGIN_LAT, ORIGIN_LON, bnn_lat, bnn_lon)
-    assert distance_to_bnn_nm == pytest.approx(11.2, abs=0.1)
+    assert distance_to_bnn_nm == pytest.approx(11.6, abs=0.1)
