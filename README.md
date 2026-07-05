@@ -30,14 +30,43 @@ See [`.planning/research/STACK.md`](.planning/research/STACK.md) for the full st
 
 ## Installation
 
-> **Not available yet.** This project is still in the planning stage — Phase 1 (the walking skeleton) hasn't been built, so there's no package, entry point, or dependency list to install yet.
->
-> Once Phase 1 ships, this section will cover:
-> - Cloning the repo and setting up a Python 3.12+ virtual environment
-> - Installing dependencies (`pygame-ce`, `pygame_gui`, `pydantic`, `geographiclib`)
-> - Running the simulator and loading a scenario
->
-> Track progress in [`.planning/ROADMAP.md`](.planning/ROADMAP.md).
+**Prerequisites:** Python 3.12+ (Python 3.14 is fine too).
+
+1. **Clone the repo and create a virtual environment:**
+
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate        # Windows: .venv\Scripts\activate
+   ```
+
+2. **Bootstrap pip if needed.** Most Python installs bundle pip automatically inside a fresh venv. If `python -m pip --version` fails after activating the venv above, bootstrap it with:
+
+   ```bash
+   python -m ensurepip --upgrade
+   ```
+
+3. **Install the project (editable) with dev dependencies:**
+
+   ```bash
+   python -m pip install --upgrade pip
+   python -m pip install -e ".[dev]"
+   ```
+
+4. **Launch the walking skeleton:**
+
+   ```bash
+   atc-sim
+   ```
+
+   (equivalent fallback: `python -m atc_sim.app`)
+
+   This opens a 1280x800 window showing a single aircraft gliding across a radar canvas with range rings, sector lines, a heading vector, and a fading trail — the Phase 1 walking skeleton proving the sim clock is fully decoupled from the render loop.
+
+5. **Run the test suite:**
+
+   ```bash
+   python -m pytest
+   ```
 
 ## Roadmap
 
