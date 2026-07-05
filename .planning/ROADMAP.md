@@ -153,7 +153,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Walking Skeleton — Sim Clock & Radar Render Loop | 5/5 | Complete   | 2026-07-05 |
+| 1. Walking Skeleton — Sim Clock & Radar Render Loop | 5/5 | Complete    | 2026-07-05 |
 | 2. Navdata & Coordinate Projection | 0/TBD | Not started | - |
 | 3. Aircraft Performance, Flight-Phase FSM & Procedure Following | 0/TBD | Not started | - |
 | 4. Instruction Handling — Click, Panel, Vectoring & ILS Capture | 0/TBD | Not started | - |
