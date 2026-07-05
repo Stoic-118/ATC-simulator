@@ -5,15 +5,15 @@ milestone_name: milestone
 current_phase: 02
 current_phase_name: navdata-coordinate-projection
 status: executing
-stopped_at: Completed 02-04-PLAN.md
-last_updated: "2026-07-05T19:42:44.363Z"
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-07-05T20:09:44.711Z"
 last_activity: 2026-07-05
 last_activity_desc: Phase 02 execution started
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 10
-  completed_plans: 7
+  completed_plans: 8
   percent: 14
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-07-03)
 ## Current Position
 
 Phase: 02 (navdata-coordinate-projection) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 Status: Ready to execute
 Last activity: 2026-07-05 — Phase 02 execution started
 
@@ -62,6 +62,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P05 | 15min | 2 tasks | 1 files |
 | Phase 02 P01 | 5min | 2 tasks | 1 files |
 | Phase 02 P04 | 10min | 2 tasks | 3 files |
+| Phase 02 P02 | 10min | 3 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -81,6 +82,8 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 01-05]: Documented both the atc-sim console script and python -m atc_sim.app as equivalent launch paths in README, matching pyproject.toml's [project.scripts] entry
 - [Phase ?]: [Phase 02-01]: geographiclib legitimacy human-confirmed on pypi.org (long-established, MIT, official SourceForge link, exact name match) before install - SUS audit flag was a sandbox unknown-downloads false-positive
 - [Phase ?]: [Phase 02-04]: Kept CANVAS_WIDTH/CANVAS_HEIGHT constants in aircraft.py (used only by spawn_default now); interpolate() wrap-skip and sim_step wrap removed together per Pitfall A to avoid regressing the teleport-streak the wrap-skip existed to hide
+- [Phase ?]: [Phase 02-02]: Corrected test_true_bearing_and_distance_nm's BNN distance expectation from RESEARCH.md's rounded ~11.2nm to the precise geodesic value ~11.6nm, verified directly against geographiclib.Inverse()
+- [Phase ?]: [Phase 02-02]: render/radar.py imports atc_sim.navdata.* directly (no Protocol) since navdata is frozen read-only reference data, unlike the mutable sim-state RenderState Protocol boundary
 
 ### Pending Todos
 
@@ -101,6 +104,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-05T19:42:44.042Z
-Stopped at: Completed 02-04-PLAN.md
+Last session: 2026-07-05T20:09:44.701Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
