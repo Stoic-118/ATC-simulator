@@ -5,15 +5,15 @@ milestone_name: milestone
 current_phase: 02
 current_phase_name: navdata-coordinate-projection
 status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-07-05T19:31:56.385Z"
+stopped_at: Completed 02-04-PLAN.md
+last_updated: "2026-07-05T19:42:44.363Z"
 last_activity: 2026-07-05
 last_activity_desc: Phase 02 execution started
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 10
-  completed_plans: 6
+  completed_plans: 7
   percent: 14
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-07-03)
 ## Current Position
 
 Phase: 02 (navdata-coordinate-projection) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 Status: Ready to execute
 Last activity: 2026-07-05 — Phase 02 execution started
 
@@ -61,6 +61,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P04 | 20min | 3 tasks | 4 files |
 | Phase 01 P05 | 15min | 2 tasks | 1 files |
 | Phase 02 P01 | 5min | 2 tasks | 1 files |
+| Phase 02 P04 | 10min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,7 @@ Recent decisions affecting current work:
 - [Phase 01]: [Phase 01-04]: Replaced render/radar.py's AircraftSnapshot type-hint import with a local typing.Protocol (RenderState) so app.py stays the sole module importing both pygame and atc_sim.sim.*
 - [Phase ?]: [Phase 01-05]: Documented both the atc-sim console script and python -m atc_sim.app as equivalent launch paths in README, matching pyproject.toml's [project.scripts] entry
 - [Phase ?]: [Phase 02-01]: geographiclib legitimacy human-confirmed on pypi.org (long-established, MIT, official SourceForge link, exact name match) before install - SUS audit flag was a sandbox unknown-downloads false-positive
+- [Phase ?]: [Phase 02-04]: Kept CANVAS_WIDTH/CANVAS_HEIGHT constants in aircraft.py (used only by spawn_default now); interpolate() wrap-skip and sim_step wrap removed together per Pitfall A to avoid regressing the teleport-streak the wrap-skip existed to hide
 
 ### Pending Todos
 
@@ -99,6 +101,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-05T19:31:56.365Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-07-05T19:42:44.042Z
+Stopped at: Completed 02-04-PLAN.md
 Resume file: None
