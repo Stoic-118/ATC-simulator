@@ -8,7 +8,7 @@ import anywhere in this file or in the modules under test.
 import pytest
 from pydantic import ValidationError
 
-from atc_sim.sim.aircraft import CANVAS_HEIGHT, CANVAS_WIDTH, Aircraft, sim_step
+from atc_sim.sim.aircraft import CANVAS_WIDTH, Aircraft, sim_step
 from atc_sim.sim.interpolation import AircraftSnapshot, capture_state, interpolate
 
 
@@ -65,19 +65,15 @@ def test_heading_interpolation_shortest_path():
     assert result3.heading_deg == pytest.approx(95.0)
 
 
-def test_wrap_skip_snaps_to_current():
-    # A position jump larger than half the canvas width simulates the D-02
-    # wrap-at-edge; interpolate() must snap to curr, not lerp across the seam.
-    prev = AircraftSnapshot(x=CANVAS_WIDTH - 10.0, y=200.0, heading_deg=90.0)
+def test_large_jump_now_lerps():
+    # Phase 2 (Pitfall A): the D-02 wrap-skip special case is gone — a large
+    # position jump between snapshots (as real-world-scale coordinates can
+    # produce) now interpolates to the midpoint instead of snapping to curr.
+    prev = AircraftSnapshot(x=1270.0, y=200.0, heading_deg=90.0)
     curr = AircraftSnapshot(x=5.0, y=200.0, heading_deg=90.0)
     result = interpolate(prev, curr, 0.5)
-    assert result.x == curr.x
-
-    # Same behavior for a large y jump.
-    prev_y = AircraftSnapshot(x=100.0, y=CANVAS_HEIGHT - 10.0, heading_deg=90.0)
-    curr_y = AircraftSnapshot(x=100.0, y=5.0, heading_deg=90.0)
-    result_y = interpolate(prev_y, curr_y, 0.5)
-    assert result_y.y == curr_y.y
+    assert result.x == pytest.approx(637.5)
+    assert result.x != curr.x
 
 
 def test_sim_step_moves_along_heading():

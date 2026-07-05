@@ -15,7 +15,7 @@ pytest with no display, enforced by tests/test_boundary.py.
 
 from pydantic import BaseModel, ConfigDict
 
-from atc_sim.sim.aircraft import CANVAS_HEIGHT, CANVAS_WIDTH, Aircraft
+from atc_sim.sim.aircraft import Aircraft
 
 
 class AircraftSnapshot(BaseModel):
@@ -40,15 +40,10 @@ def _lerp_angle_deg(a: float, b: float, t: float) -> float:
 
 
 def interpolate(prev: AircraftSnapshot, curr: AircraftSnapshot, alpha: float) -> AircraftSnapshot:
-    # D-02 wrap-skip edge case: a position jump greater than half the canvas
-    # dimension between snapshots means the sim tick wrapped the aircraft at
-    # the canvas edge. Lerping across that seam would draw a fast streak
-    # across the whole canvas for one interpolation window, so snap straight
-    # to curr instead. Phase-1-only special case — removed once Phase 2
-    # replaces wrap-at-edge with real navdata paths; do not generalize.
-    if abs(curr.x - prev.x) > CANVAS_WIDTH / 2 or abs(curr.y - prev.y) > CANVAS_HEIGHT / 2:
-        return curr
-
+    # Phase 2 (Pitfall A): the D-02 wrap-skip special case was removed here —
+    # sim_step no longer teleport-wraps the aircraft at the canvas edge, so
+    # there is no wrap seam to snap across. interpolate() is now always a
+    # plain lerp, which is what real-world-scale position jumps require.
     return AircraftSnapshot(
         x=_lerp(prev.x, curr.x, alpha),
         y=_lerp(prev.y, curr.y, alpha),
