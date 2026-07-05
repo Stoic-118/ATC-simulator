@@ -12,12 +12,12 @@ The player can work a full session — launch an aircraft off a SID, land anothe
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Native Pygame window with its own rendering loop, decoupled from a fixed-timestep sim clock (sim tick 1–4Hz driving aircraft state; render loop at 60fps) — Validated in Phase 1: Walking Skeleton — Sim Clock & Radar Render Loop
+- [x] Radar canvas: range rings, sector lines, heading vector line, trail dots — Validated in Phase 1: Walking Skeleton — Sim Clock & Radar Render Loop
 
 ### Active
 
-- [ ] Native Pygame window with its own rendering loop, decoupled from a fixed-timestep sim clock (sim tick 1–4Hz driving aircraft state; render loop at 60fps)
-- [ ] Radar canvas: range rings, sector lines, aircraft datablocks (callsign/altitude/speed/assigned info), heading vector line, trail dots
+- [ ] Radar canvas: aircraft datablocks (callsign/altitude/speed/assigned info) — deferred to Phase 4 (needs instructions to exist first for "assigned info" to be meaningful)
 - [ ] Navdata for one real airport (London Luton, EGGW), one runway direction (26) only — no runway changes, no wind-driven configuration switching
 - [ ] One SID and one STAR, off/into runway 26, with realistic ILS parameters (localizer course, 3.0° glideslope, CAT I decision height)
 - [ ] IFR traffic only for v1 (VFR deferred to v2+)
@@ -93,4 +93,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-07-03 after initialization*
+*Last updated: 2026-07-05 after Phase 1 completion*
