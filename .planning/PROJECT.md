@@ -14,12 +14,14 @@ The player can work a full session — launch an aircraft off a SID, land anothe
 
 - [x] Native Pygame window with its own rendering loop, decoupled from a fixed-timestep sim clock (sim tick 1–4Hz driving aircraft state; render loop at 60fps) — Validated in Phase 1: Walking Skeleton — Sim Clock & Radar Render Loop
 - [x] Radar canvas: range rings, sector lines, heading vector line, trail dots — Validated in Phase 1: Walking Skeleton — Sim Clock & Radar Render Loop
+- [x] Navdata for one real airport (London Luton, EGGW), one runway direction (25) only — no runway changes, no wind-driven configuration switching — Validated in Phase 2: Navdata & Coordinate Projection
+- [x] One SID and one STAR, off/into runway 25, with realistic ILS parameters (localizer course, 3.0° glideslope, CAT I decision height) — Validated in Phase 2: Navdata & Coordinate Projection (procedure restrictions modeled as data; ILS localizer/glideslope parameters modeled — on-screen restriction display deferred to Phase 4)
+- [x] geographiclib for great-circle distance/bearing and lat/lon math — Validated in Phase 2: Navdata & Coordinate Projection (shared cosine-corrected projection built directly on `geographiclib.Geodesic.WGS84.Inverse()`; pyproj not used)
+- [x] Pydantic models for aircraft, procedure, and navdata — Validated (aircraft in Phase 1; procedure and navdata in Phase 2), all as frozen/validated Pydantic v2 models per the project's established conventions
 
 ### Active
 
 - [ ] Radar canvas: aircraft datablocks (callsign/altitude/speed/assigned info) — deferred to Phase 4 (needs instructions to exist first for "assigned info" to be meaningful)
-- [ ] Navdata for one real airport (London Luton, EGGW), one runway direction (25) only — no runway changes, no wind-driven configuration switching
-- [ ] One SID and one STAR, off/into runway 25, with realistic ILS parameters (localizer course, 3.0° glideslope, CAT I decision height)
 - [ ] IFR traffic only for v1 (VFR deferred to v2+)
 - [ ] Simplified per-aircraft-type performance profiles (climb/descent rate, speed envelope, turn rate as a function of bank angle and groundspeed) for a small fleet of 3–5 aircraft types
 - [ ] Departure flow: spawn at stand → abstracted taxi (timer-based, no ground pathfinding) → takeoff → climb via the one SID → exit
@@ -29,8 +31,6 @@ The player can work a full session — launch an aircraft off a SID, land anothe
 - [ ] Separation checking: standard vertical (1000ft below FL290) and horizontal (5nm) minima, surfaced as STCA-style visual/audio conflict alerts — not auto-enforced
 - [ ] Text-rendered phraseology log: controller-issued instructions and matching simulated pilot readbacks
 - [ ] Scripted scenario file (hand-authored spawn list: aircraft, type, spawn time/point, flight plan) drives all v1 traffic — no randomized generator yet
-- [ ] Pydantic models for aircraft, procedure, and navdata
-- [ ] geographiclib/pyproj for great-circle distance/bearing and lat/lon math
 
 ### Out of Scope
 
@@ -70,8 +70,8 @@ The player can work a full session — launch an aircraft off a SID, land anothe
 | Click + command-panel input over typed shorthand | Mouse-first matches real radar consoles; typed shorthand could be added later as an accelerator | — Pending |
 | Simplified performance profiles over BADA tables or full physics | Feels real without blocking v1 on heavy aircraft-performance modeling | — Pending |
 | Scripted scenario file over randomized traffic generator (v1) | Debugging separation/instruction logic needs repeatable, deterministic runs | — Pending |
-| Real airport (London Luton, EGGW, runway 25) over fictional | Real-world-plausible navdata/ILS parameters without live AIRAC complexity | — Pending |
-| One runway direction, one SID, one STAR for v1 | Minimizes procedure/ILS logic surface area to prove the core loop fast | — Pending |
+| Real airport (London Luton, EGGW, runway 25) over fictional | Real-world-plausible navdata/ILS parameters without live AIRAC complexity | Validated in Phase 2 |
+| One runway direction, one SID, one STAR for v1 | Minimizes procedure/ILS logic surface area to prove the core loop fast | Validated in Phase 2 (OLNEY 2B SID, DET 2A STAR) |
 | Runway identifier updated "26" → "25" (Phase 2 research) | EGGW's runway was redesignated 08/26 → 07/25 in a May 2020 magnetic-drift realignment — same physical runway/threshold/ILS, relabeled identifier. Renamed throughout for real-world accuracy rather than keeping the outdated label, consistent with "the sim never lies." | Validated in Phase 2 research |
 | IFR-only for v1, VFR deferred to v2+ | VFR is a second state machine and interaction model — the single biggest cut to reach v1 faster | — Pending |
 | Separation surfaced as alerts, not auto-enforced | A controller game with no separation consequence isn't an ATC game — but the controller must stay in control | — Pending |
@@ -94,4 +94,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-07-05 after Phase 1 completion*
+*Last updated: 2026-07-06 after Phase 2 completion*
