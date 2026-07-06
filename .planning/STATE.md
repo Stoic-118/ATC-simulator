@@ -6,14 +6,14 @@ current_phase: 03
 current_phase_name: Aircraft Performance, Flight-Phase FSM & Procedure Following
 status: executing
 stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-07-06T17:55:58.328Z"
+last_updated: "2026-07-06T18:49:51.177Z"
 last_activity: 2026-07-06
 last_activity_desc: Phase 03 execution started
 progress:
   total_phases: 7
   completed_phases: 2
   total_plans: 16
-  completed_plans: 14
+  completed_plans: 15
   percent: 29
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-07-03)
 ## Current Position
 
 Phase: 03 (Aircraft Performance, Flight-Phase FSM & Procedure Following) — EXECUTING
-Plan: 5 of 6
+Plan: 6 of 6
 Status: Ready to execute
 Last activity: 2026-07-06 — Phase 03 execution started
 
@@ -70,6 +70,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03 P02 | 15min | 2 tasks | 1 files |
 | Phase 03 P03 | 3min | 1 tasks | 1 files |
 | Phase 03 P04 | 25min | 3 tasks | 6 files |
+| Phase 03 P05 | 20min | 1 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -102,6 +103,8 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 03-04]: APPROACH targets the runway threshold directly via a new _approach_targets() helper (never compute_target()) since procedure_leg_index exhausts the STAR's legs before DESCENT->APPROACH fires, avoiding an out-of-range leg index while keeping procedure.py free of ILS-adjacent logic
 - [Phase ?]: [Phase 03-04]: CLIMB->ENROUTE and DESCENT->APPROACH completions are tied to procedure-leg progress, not altitude, matching 03-RESEARCH.md Pattern C
 - [Phase ?]: [Phase 03-04]: Renamed render/radar.py's RenderState Protocol + draw_frame from x/y to x_nm/y_nm in lockstep with the AircraftSnapshot rename (Rule 3 fix); real nm->pixel projection remains deferred to plan 03-06
+- [Phase ?]: [Phase 03-05]: spawn_departure/spawn_arrival take an optional performance parameter (defaulting to next rotated fleet type) rather than a required one, matching the actual test contract in tests/test_departure_flow.py and tests/test_arrival_flow.py which call both with zero arguments
+- [Phase ?]: [Phase 03-05]: Fixed a latent Rule-1 bug in aircraft.py's _is_phase_complete -- TAXI_IN is terminal (no legal transitions) so it must never auto-fire transition_to(), which previously raised StopIteration once an arrival's TAXI_IN timer elapsed; removal of TAXI_IN aircraft is now purely demo_traffic.py's list-membership concern
 
 ### Pending Todos
 
@@ -122,7 +125,7 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-06T17:53:00.995Z
+Last session: 2026-07-06T18:44:52.767Z
 Stopped at: Completed 03-03-PLAN.md
 Resume file: 
 None

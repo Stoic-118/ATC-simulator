@@ -141,3 +141,7 @@ None - no external service configuration required.
 ---
 *Phase: 03-aircraft-performance-flight-phase-fsm-procedure-following*
 *Completed: 2026-07-06*
+
+## Self-Check: PASSED
+
+Created file `src/atc_sim/sim/demo_traffic.py` and this SUMMARY.md verified present on disk; both commit hashes (`760d25a`, `9f0abeb`) verified present in git log.
