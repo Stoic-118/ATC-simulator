@@ -18,15 +18,20 @@ from pydantic import BaseModel, ConfigDict
 from atc_sim.sim.aircraft import Aircraft
 
 
+# Phase 3 (03-04): renamed x/y -> x_nm/y_nm in lockstep with Aircraft's
+# move into the shared local-nm tangent-plane coordinate space (Aircraft no
+# longer stores pixel coordinates). altitude_ft is deliberately NOT added
+# here (03-RESEARCH.md Open Question 1 / D-04): there is no datablock yet,
+# so altitude need not be interpolated this phase.
 class AircraftSnapshot(BaseModel):
     model_config = ConfigDict(frozen=True)
-    x: float
-    y: float
+    x_nm: float
+    y_nm: float
     heading_deg: float
 
 
 def capture_state(aircraft: Aircraft) -> AircraftSnapshot:
-    return AircraftSnapshot(x=aircraft.x, y=aircraft.y, heading_deg=aircraft.heading_deg)
+    return AircraftSnapshot(x_nm=aircraft.x_nm, y_nm=aircraft.y_nm, heading_deg=aircraft.heading_deg)
 
 
 def _lerp(a: float, b: float, t: float) -> float:
@@ -45,7 +50,7 @@ def interpolate(prev: AircraftSnapshot, curr: AircraftSnapshot, alpha: float) ->
     # there is no wrap seam to snap across. interpolate() is now always a
     # plain lerp, which is what real-world-scale position jumps require.
     return AircraftSnapshot(
-        x=_lerp(prev.x, curr.x, alpha),
-        y=_lerp(prev.y, curr.y, alpha),
+        x_nm=_lerp(prev.x_nm, curr.x_nm, alpha),
+        y_nm=_lerp(prev.y_nm, curr.y_nm, alpha),
         heading_deg=_lerp_angle_deg(prev.heading_deg, curr.heading_deg, alpha),
     )

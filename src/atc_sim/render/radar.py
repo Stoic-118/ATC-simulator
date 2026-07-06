@@ -38,10 +38,16 @@ from atc_sim.render.window import (
 class RenderState(Protocol):
     """Structural type for a frozen AircraftSnapshot — avoids a runtime
     import of atc_sim.sim.interpolation so this pygame-importing module
-    never also imports atc_sim.sim.* (app.py is the sole exception)."""
+    never also imports atc_sim.sim.* (app.py is the sole exception).
 
-    x: float
-    y: float
+    Phase 3 (03-04): field names renamed x_nm/y_nm in lockstep with
+    AircraftSnapshot's coordinate-space migration. These are still treated
+    as raw screen-space values here (no world_to_screen projection) — the
+    actual nm->pixel wiring through app.py/draw_frame is rewired in plan
+    03-06, per 03-04-PLAN.md's explicit scope boundary."""
+
+    x_nm: float
+    y_nm: float
     heading_deg: float
 
 
@@ -197,4 +203,4 @@ def draw_frame(
     (CORE-03); the trail deque is owned/updated by app.py, appended once
     per sim tick, not by this render layer."""
     screen.blit(background, (0, 0))
-    draw_aircraft(screen, render_state.x, render_state.y, render_state.heading_deg, trail)
+    draw_aircraft(screen, render_state.x_nm, render_state.y_nm, render_state.heading_deg, trail)
