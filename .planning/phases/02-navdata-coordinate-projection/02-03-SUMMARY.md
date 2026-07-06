@@ -160,3 +160,17 @@ None - no external service configuration required.
 ---
 *Phase: 02-navdata-coordinate-projection*
 *Completed: 2026-07-05*
+
+## Self-Check: PASSED
+
+- FOUND: src/atc_sim/navdata/models.py
+- FOUND: src/atc_sim/navdata/eggw.py
+- FOUND: src/atc_sim/render/window.py
+- FOUND: src/atc_sim/render/radar.py
+- FOUND: src/atc_sim/app.py
+- FOUND: tests/test_navdata.py
+- FOUND: tests/test_render_smoke.py
+- FOUND commit: 46de8d0
+- FOUND commit: 91851fc
+- FOUND commit: d3eac88
+- FOUND commit: 3bcfdda

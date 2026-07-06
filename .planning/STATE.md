@@ -5,15 +5,15 @@ milestone_name: milestone
 current_phase: 02
 current_phase_name: navdata-coordinate-projection
 status: executing
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-07-05T20:09:44.711Z"
+stopped_at: Completed 02-03-PLAN.md
+last_updated: "2026-07-06T07:33:34.520Z"
 last_activity: 2026-07-05
 last_activity_desc: Phase 02 execution started
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 10
-  completed_plans: 8
+  completed_plans: 9
   percent: 14
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-07-03)
 ## Current Position
 
 Phase: 02 (navdata-coordinate-projection) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
 Last activity: 2026-07-05 — Phase 02 execution started
 
@@ -63,6 +63,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02 P01 | 5min | 2 tasks | 1 files |
 | Phase 02 P04 | 10min | 2 tasks | 3 files |
 | Phase 02 P02 | 10min | 3 tasks | 11 files |
+| Phase 02 P03 | 11min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,9 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 02-04]: Kept CANVAS_WIDTH/CANVAS_HEIGHT constants in aircraft.py (used only by spawn_default now); interpolate() wrap-skip and sim_step wrap removed together per Pitfall A to avoid regressing the teleport-streak the wrap-skip existed to hide
 - [Phase ?]: [Phase 02-02]: Corrected test_true_bearing_and_distance_nm's BNN distance expectation from RESEARCH.md's rounded ~11.2nm to the precise geodesic value ~11.6nm, verified directly against geographiclib.Inverse()
 - [Phase ?]: [Phase 02-02]: render/radar.py imports atc_sim.navdata.* directly (no Protocol) since navdata is frozen read-only reference data, unlike the mutable sim-state RenderState Protocol boundary
+- [Phase ?]: [Phase 02-03]: Collapsed OLNEY 2B's stepped-DME climb restriction (4000/D6, 5000/D9, 6000/D15) into a single at-or-above 6000ft restriction on the final BNN->OLNEY leg, per 02-RESEARCH.md's recommended simplification
+- [Phase ?]: [Phase 02-03]: Left HEN leg's altitude_restriction explicitly None (Pitfall B) rather than fabricating a value
+- [Phase ?]: [Phase 02-03]: Used pygame.font.Font(None, 14) (bundled default font) rather than SysFont for fix-name text rendering, for portability under the SDL dummy driver
 
 ### Pending Todos
 
@@ -104,6 +108,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-05T20:09:44.701Z
-Stopped at: Completed 02-02-PLAN.md
-Resume file: None
+Last session: 2026-07-06T07:33:34.493Z
+Stopped at: Completed 02-03-PLAN.md
+Resume file: 
