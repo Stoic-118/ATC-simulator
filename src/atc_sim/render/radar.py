@@ -1,13 +1,23 @@
 """Radar canvas drawing: static background (rings/sector lines) and the
-live aircraft symbol (trail, heading vector, dot).
+live aircraft symbol(s) (trail, heading vector, dot).
 
-This module reads only a frozen render_state (an AircraftSnapshot-shaped
-object produced by atc_sim.sim.interpolation, read via duck typing — this
-module deliberately avoids importing atc_sim.sim.* at all, so app.py stays
-the only module importing BOTH pygame and atc_sim.sim.*). It never imports
-or calls a mutator from atc_sim.sim.aircraft (RADAR-03/CORE-03's read-only
-render path). The trail deque is owned and appended-to by app.py once per
-sim tick; this module only reads it.
+This module reads only frozen render_state objects (AircraftSnapshot-shaped,
+produced by atc_sim.sim.interpolation, read via duck typing — this module
+deliberately avoids importing atc_sim.sim.* at all, so app.py stays the only
+module importing BOTH pygame and atc_sim.sim.*). It never imports or calls a
+mutator from atc_sim.sim.aircraft (RADAR-03/CORE-03's read-only render
+path). Each trail deque is owned and appended-to by app.py once per sim
+tick; this module only reads it.
+
+Phase 3 (03-06): draw_frame now renders a COLLECTION of (render_state,
+trail) pairs — one call site for every active demo_traffic aircraft rather
+than a single hardcoded aircraft — and draw_aircraft converts each nm
+position (its own and every trail point's) to screen pixels via the
+existing world_to_screen(), the same conversion every static navdata
+element already uses. Aircraft and navdata now share one coordinate space.
+A taxiing aircraft (TAXI_OUT/TAXI_IN) needs no special case here: it simply
+has a constant x_nm/y_nm, so it draws as a stationary dot (D-05). No new
+per-type visual symbol system was added (D-04).
 
 src/atc_sim/render/ legitimately imports pygame — the sim/render boundary
 guard (tests/test_boundary.py) only scans src/atc_sim/sim/.
@@ -15,6 +25,7 @@ guard (tests/test_boundary.py) only scans src/atc_sim/sim/.
 
 import math
 from collections import deque
+from collections.abc import Iterable
 from typing import Protocol
 
 import pygame
@@ -41,10 +52,11 @@ class RenderState(Protocol):
     never also imports atc_sim.sim.* (app.py is the sole exception).
 
     Phase 3 (03-04): field names renamed x_nm/y_nm in lockstep with
-    AircraftSnapshot's coordinate-space migration. These are still treated
-    as raw screen-space values here (no world_to_screen projection) — the
-    actual nm->pixel wiring through app.py/draw_frame is rewired in plan
-    03-06, per 03-04-PLAN.md's explicit scope boundary."""
+    AircraftSnapshot's coordinate-space migration. Phase 3 (03-06):
+    draw_aircraft now converts these nm values to screen pixels via
+    world_to_screen before drawing — see this module's header docstring.
+    No `phase` field is added here (D-04: no datablock, no per-type
+    symbol this phase)."""
 
     x_nm: float
     y_nm: float
@@ -169,38 +181,46 @@ def build_static_background(
 
 def draw_aircraft(
     surface: pygame.Surface,
-    x: float,
-    y: float,
+    x_nm: float,
+    y_nm: float,
     heading_deg: float,
     trail: deque[tuple[float, float]],
 ) -> None:
     """Draws in z-order trail -> heading vector -> dot, so the dot is never
-    occluded by its own trail/vector."""
+    occluded by its own trail/vector. `x_nm`/`y_nm` and every trail point
+    are shared-nm-space coordinates (Phase 3, 03-06) converted to screen
+    pixels here via world_to_screen — the same conversion every static
+    navdata element (runway/fixes/procedures) already uses."""
+    x_px, y_px = world_to_screen(x_nm, y_nm, CENTER, PX_PER_NM)
+
     # Trail: oldest points fainter/smaller — fixed-length deque handles aging out
-    for age, (tx, ty) in enumerate(trail):
+    for age, (trail_x_nm, trail_y_nm) in enumerate(trail):
+        trail_x_px, trail_y_px = world_to_screen(trail_x_nm, trail_y_nm, CENTER, PX_PER_NM)
         fade = 1.0 - (age / max(len(trail), 1))
         radius = max(1, int(AIRCRAFT_RADIUS_PX * 0.4 * fade))
-        pygame.draw.circle(surface, TRAIL_COLOR, (int(tx), int(ty)), radius)
+        pygame.draw.circle(surface, TRAIL_COLOR, (trail_x_px, trail_y_px), radius)
 
     # Heading vector: from aircraft position, pointing along heading_deg
     # (0 deg = up/north, clockwise, matching the compass/radar convention)
     rad = math.radians(heading_deg)
-    end = (x + math.sin(rad) * VECTOR_LENGTH_PX, y - math.cos(rad) * VECTOR_LENGTH_PX)
-    pygame.draw.aaline(surface, VECTOR_COLOR, (x, y), end)
+    end = (x_px + math.sin(rad) * VECTOR_LENGTH_PX, y_px - math.cos(rad) * VECTOR_LENGTH_PX)
+    pygame.draw.aaline(surface, VECTOR_COLOR, (x_px, y_px), end)
 
     # Aircraft dot, drawn last so it sits above its own trail/vector
-    pygame.draw.circle(surface, AIRCRAFT_COLOR, (int(x), int(y)), AIRCRAFT_RADIUS_PX)
+    pygame.draw.circle(surface, AIRCRAFT_COLOR, (x_px, y_px), AIRCRAFT_RADIUS_PX)
 
 
 def draw_frame(
     screen: pygame.Surface,
     background: pygame.Surface,
-    render_state: RenderState,
-    trail: deque[tuple[float, float]],
+    aircraft_render_items: Iterable[tuple[RenderState, deque[tuple[float, float]]]],
 ) -> None:
-    """Blits the cached background then draws the aircraft from a frozen
-    AircraftSnapshot. render_state is read-only here — never assigned to
-    (CORE-03); the trail deque is owned/updated by app.py, appended once
-    per sim tick, not by this render layer."""
+    """Blits the cached background once, then draws every active aircraft
+    from its own frozen AircraftSnapshot (Phase 3, 03-06: a collection
+    instead of a single hardcoded aircraft). Each render_state is
+    read-only here — never assigned to (CORE-03); each trail deque is
+    owned/updated by app.py, appended once per sim tick, not by this
+    render layer."""
     screen.blit(background, (0, 0))
-    draw_aircraft(screen, render_state.x_nm, render_state.y_nm, render_state.heading_deg, trail)
+    for render_state, trail in aircraft_render_items:
+        draw_aircraft(screen, render_state.x_nm, render_state.y_nm, render_state.heading_deg, trail)

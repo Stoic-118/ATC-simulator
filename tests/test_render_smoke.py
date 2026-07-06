@@ -30,11 +30,11 @@ def test_build_and_draw_frame_headless_does_not_raise():
         background = build_static_background(
             (1280, 800), EGGW_RUNWAY, [OLNEY_2B_SID, DET_2A_STAR]
         )
-        snapshot = AircraftSnapshot(x_nm=640.0, y_nm=400.0, heading_deg=45.0)
+        snapshot = AircraftSnapshot(x_nm=1.0, y_nm=2.0, heading_deg=45.0)
         trail: deque[tuple[float, float]] = deque(
-            [(600.0, 380.0), (620.0, 390.0)], maxlen=TRAIL_MAX_LEN
+            [(0.8, 1.8), (0.9, 1.9)], maxlen=TRAIL_MAX_LEN
         )
 
-        draw_frame(screen, background, snapshot, trail)
+        draw_frame(screen, background, [(snapshot, trail)])
     finally:
         pygame.quit()
