@@ -14,7 +14,7 @@ The build starts with the single riskiest architectural bet — a fixed-timestep
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Walking Skeleton — Sim Clock & Radar Render Loop** - A fixed-timestep sim clock drives one aircraft, decoupled from a 60fps render loop, on a bare radar canvas (completed 2026-07-05)
-- [ ] **Phase 2: Navdata & Coordinate Projection** - Real EGGW runway-25 navdata and a cosine-corrected lat/lon-to-pixel projection shared with future separation math
+- [x] **Phase 2: Navdata & Coordinate Projection** - Real EGGW runway-25 navdata and a cosine-corrected lat/lon-to-pixel projection shared with future separation math (completed 2026-07-06)
 - [ ] **Phase 3: Aircraft Performance, Flight-Phase FSM & Procedure Following** - Typed performance profiles and an explicit phase state machine let aircraft fly a full departure/arrival via the SID/STAR unattended
 - [ ] **Phase 4: Instruction Handling — Click, Panel, Vectoring & ILS Capture** - Player selects aircraft and issues real ATC instructions that override procedure-following; ILS capture is one well-defined guidance state
 - [ ] **Phase 5: Separation & Conflict Detection (STCA-style)** - Every aircraft pair is checked each tick against standard minima and violations surface as alerts, never blocks
@@ -68,13 +68,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Range rings render as true circles (not ellipses) at any radar pan/zoom, confirming the cosine-corrected projection
   4. Heading, course, bearing, and track are distinct named fields with magnetic variation applied at exactly one defined point — displayed procedure courses match real-world EGGW SID/STAR charted values
 
-**Plans**: 4/5 plans executed
+**Plans**: 5/5 plans complete
 
 - [x] 02-01-PLAN.md
 - [x] 02-02-PLAN.md
 - [x] 02-03-PLAN.md
 - [x] 02-04-PLAN.md
-- [ ] 02-05-PLAN.md
+- [x] 02-05-PLAN.md
 
 ### Phase 3: Aircraft Performance, Flight-Phase FSM & Procedure Following
 
@@ -160,7 +160,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Walking Skeleton — Sim Clock & Radar Render Loop | 5/5 | Complete    | 2026-07-05 |
-| 2. Navdata & Coordinate Projection | 4/5 | In Progress|  |
+| 2. Navdata & Coordinate Projection | 5/5 | Complete   | 2026-07-06 |
 | 3. Aircraft Performance, Flight-Phase FSM & Procedure Following | 0/TBD | Not started | - |
 | 4. Instruction Handling — Click, Panel, Vectoring & ILS Capture | 0/TBD | Not started | - |
 | 5. Separation & Conflict Detection (STCA-style) | 0/TBD | Not started | - |
