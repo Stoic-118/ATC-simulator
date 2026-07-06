@@ -90,7 +90,28 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Aircraft flight-phase transitions (taxi, departure roll, climb, en-route, descent, approach, landed, taxi-in) are always legal — no skipped or contradictory phase states are ever observed
   5. After landing, an arrival aircraft taxis in (abstracted) and is removed from active traffic
 
-**Plans**: TBD
+**Plans**: 6 plans
+
+**Wave 0** *(Nyquist test scaffold)*
+
+- [ ] 03-01-PLAN.md — Test scaffold: conftest phase-recorder + 5 requirement tests (import-guarded)
+
+**Wave 1** *(blocked on Wave 0)*
+
+- [ ] 03-02-PLAN.md — Performance profiles + kinematics helpers (PERF-01)
+- [ ] 03-03-PLAN.md — Flight-phase FSM: 8-state enum + legal transitions (PERF-02)
+
+**Wave 2** *(blocked on Wave 1)*
+
+- [ ] 03-04-PLAN.md — Aircraft nm-coordinate evolution + procedure-following + sim_step dispatch (PROC-01)
+
+**Wave 3** *(blocked on Wave 2)*
+
+- [ ] 03-05-PLAN.md — Demo traffic harness: spawn/remove/loop departure+arrival with type rotation (PERF-03, PERF-04)
+
+**Wave 4** *(blocked on Wave 3)*
+
+- [ ] 03-06-PLAN.md — App + radar integration: observable looping demo + end-of-phase visual sign-off
 
 ### Phase 4: Instruction Handling — Click, Panel, Vectoring & ILS Capture
 
@@ -161,7 +182,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Walking Skeleton — Sim Clock & Radar Render Loop | 5/5 | Complete    | 2026-07-05 |
 | 2. Navdata & Coordinate Projection | 5/5 | Complete    | 2026-07-06 |
-| 3. Aircraft Performance, Flight-Phase FSM & Procedure Following | 0/TBD | Not started | - |
+| 3. Aircraft Performance, Flight-Phase FSM & Procedure Following | 0/6 | Planned | - |
 | 4. Instruction Handling — Click, Panel, Vectoring & ILS Capture | 0/TBD | Not started | - |
 | 5. Separation & Conflict Detection (STCA-style) | 0/TBD | Not started | - |
 | 6. Scripted Scenario Loader | 0/TBD | Not started | - |
