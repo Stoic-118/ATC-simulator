@@ -30,7 +30,7 @@ def test_build_and_draw_frame_headless_does_not_raise():
         background = build_static_background(
             (1280, 800), EGGW_RUNWAY, [OLNEY_2B_SID, DET_2A_STAR]
         )
-        snapshot = AircraftSnapshot(x=640.0, y=400.0, heading_deg=45.0)
+        snapshot = AircraftSnapshot(x_nm=640.0, y_nm=400.0, heading_deg=45.0)
         trail: deque[tuple[float, float]] = deque(
             [(600.0, 380.0), (620.0, 390.0)], maxlen=TRAIL_MAX_LEN
         )
