@@ -90,11 +90,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Aircraft flight-phase transitions (taxi, departure roll, climb, en-route, descent, approach, landed, taxi-in) are always legal — no skipped or contradictory phase states are ever observed
   5. After landing, an arrival aircraft taxis in (abstracted) and is removed from active traffic
 
-**Plans**: 6 plans
+**Plans**: 1/6 plans executed
 
 **Wave 0** *(Nyquist test scaffold)*
 
-- [ ] 03-01-PLAN.md — Test scaffold: conftest phase-recorder + 5 requirement tests (import-guarded)
+- [x] 03-01-PLAN.md — Test scaffold: conftest phase-recorder + 5 requirement tests (import-guarded)
 
 **Wave 1** *(blocked on Wave 0)*
 
@@ -182,7 +182,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Walking Skeleton — Sim Clock & Radar Render Loop | 5/5 | Complete    | 2026-07-05 |
 | 2. Navdata & Coordinate Projection | 5/5 | Complete    | 2026-07-06 |
-| 3. Aircraft Performance, Flight-Phase FSM & Procedure Following | 0/6 | Planned | - |
+| 3. Aircraft Performance, Flight-Phase FSM & Procedure Following | 1/6 | In Progress|  |
 | 4. Instruction Handling — Click, Panel, Vectoring & ILS Capture | 0/TBD | Not started | - |
 | 5. Separation & Conflict Detection (STCA-style) | 0/TBD | Not started | - |
 | 6. Scripted Scenario Loader | 0/TBD | Not started | - |

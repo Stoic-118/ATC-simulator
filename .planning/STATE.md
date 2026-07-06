@@ -2,18 +2,18 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_phase: 3
+current_phase: 03
 current_phase_name: Aircraft Performance, Flight-Phase FSM & Procedure Following
 status: executing
-stopped_at: Phase 3 context gathered
-last_updated: "2026-07-06T14:26:18.252Z"
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-07-06T17:20:53.814Z"
 last_activity: 2026-07-06
-last_activity_desc: Phase 02 complete, transitioned to Phase 3
+last_activity_desc: Phase 03 execution started
 progress:
   total_phases: 7
   completed_phases: 2
-  total_plans: 10
-  completed_plans: 10
+  total_plans: 16
+  completed_plans: 11
   percent: 29
 ---
 
@@ -24,14 +24,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-03)
 
 **Core value:** The player can work a full session — launch an aircraft off a SID, land another off the ILS, entirely through their own instructions — and the sim never lies about separation.
-**Current focus:** Phase 02 — navdata-coordinate-projection
+**Current focus:** Phase 03 — Aircraft Performance, Flight-Phase FSM & Procedure Following
 
 ## Current Position
 
-Phase: 3 — Aircraft Performance, Flight-Phase FSM & Procedure Following
-Plan: Not started
+Phase: 03 (Aircraft Performance, Flight-Phase FSM & Procedure Following) — EXECUTING
+Plan: 2 of 6
 Status: Ready to execute
-Last activity: 2026-07-06 — Phase 02 complete, transitioned to Phase 3
+Last activity: 2026-07-06 — Phase 03 execution started
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -66,6 +66,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02 P02 | 10min | 3 tasks | 11 files |
 | Phase 02 P03 | 11min | 2 tasks | 7 files |
 | Phase 02 P05 | 5min | 1 tasks | 1 files |
+| Phase 03 P01 | 6min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -91,6 +92,8 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 02-03]: Left HEN leg's altitude_restriction explicitly None (Pitfall B) rather than fabricating a value
 - [Phase ?]: [Phase 02-03]: Used pygame.font.Font(None, 14) (bundled default font) rather than SysFont for fix-name text rendering, for portability under the SDL dummy driver
 - [Phase 02-05]: Human sign-off completed for Phase 2 capstone: real EGGW runway 25, all 6 SID/STAR fixes with tracks, true-circle range rings, non-wrapping aircraft motion, all confirmed correct
+- [Phase 03-01]: Used 'not all equal' fleet-distinctness assertions rather than strict pairwise-distinct, since 03-RESEARCH.md's own recommended fleet values intentionally repeat some numbers across types
+- [Phase 03-01]: Named the demo per-tick orchestration entry point update_demo_traffic(aircraft_list, dt), matching 03-PATTERNS.md's suggested name
 
 ### Pending Todos
 
@@ -111,7 +114,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-06T09:19:02.761Z
-Stopped at: Phase 3 context gathered
+Last session: 2026-07-06T17:20:53.804Z
+Stopped at: Completed 03-01-PLAN.md
 Resume file: 
-.planning/phases/03-aircraft-performance-flight-phase-fsm-procedure-following/03-CONTEXT.md
