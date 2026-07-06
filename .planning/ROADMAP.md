@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Walking Skeleton — Sim Clock & Radar Render Loop** - A fixed-timestep sim clock drives one aircraft, decoupled from a 60fps render loop, on a bare radar canvas (completed 2026-07-05)
 - [x] **Phase 2: Navdata & Coordinate Projection** - Real EGGW runway-25 navdata and a cosine-corrected lat/lon-to-pixel projection shared with future separation math (completed 2026-07-06)
-- [ ] **Phase 3: Aircraft Performance, Flight-Phase FSM & Procedure Following** - Typed performance profiles and an explicit phase state machine let aircraft fly a full departure/arrival via the SID/STAR unattended
+- [x] **Phase 3: Aircraft Performance, Flight-Phase FSM & Procedure Following** - Typed performance profiles and an explicit phase state machine let aircraft fly a full departure/arrival via the SID/STAR unattended (completed 2026-07-06)
 - [ ] **Phase 4: Instruction Handling — Click, Panel, Vectoring & ILS Capture** - Player selects aircraft and issues real ATC instructions that override procedure-following; ILS capture is one well-defined guidance state
 - [ ] **Phase 5: Separation & Conflict Detection (STCA-style)** - Every aircraft pair is checked each tick against standard minima and violations surface as alerts, never blocks
 - [ ] **Phase 6: Scripted Scenario Loader** - A hand-authored, schema-validated scenario file drives an entire session's traffic
@@ -90,7 +90,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Aircraft flight-phase transitions (taxi, departure roll, climb, en-route, descent, approach, landed, taxi-in) are always legal — no skipped or contradictory phase states are ever observed
   5. After landing, an arrival aircraft taxis in (abstracted) and is removed from active traffic
 
-**Plans**: 5/6 plans executed
+**Plans**: 6/6 plans complete
 
 **Wave 0** *(Nyquist test scaffold)*
 
@@ -111,7 +111,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 4** *(blocked on Wave 3)*
 
-- [ ] 03-06-PLAN.md — App + radar integration: observable looping demo + end-of-phase visual sign-off
+- [x] 03-06-PLAN.md — App + radar integration: observable looping demo + end-of-phase visual sign-off
 
 ### Phase 4: Instruction Handling — Click, Panel, Vectoring & ILS Capture
 
@@ -182,7 +182,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Walking Skeleton — Sim Clock & Radar Render Loop | 5/5 | Complete    | 2026-07-05 |
 | 2. Navdata & Coordinate Projection | 5/5 | Complete    | 2026-07-06 |
-| 3. Aircraft Performance, Flight-Phase FSM & Procedure Following | 5/6 | In Progress|  |
+| 3. Aircraft Performance, Flight-Phase FSM & Procedure Following | 6/6 | Complete   | 2026-07-06 |
 | 4. Instruction Handling — Click, Panel, Vectoring & ILS Capture | 0/TBD | Not started | - |
 | 5. Separation & Conflict Detection (STCA-style) | 0/TBD | Not started | - |
 | 6. Scripted Scenario Loader | 0/TBD | Not started | - |

@@ -149,3 +149,7 @@ None - no external service configuration required.
 ---
 *Phase: 03-aircraft-performance-flight-phase-fsm-procedure-following*
 *Completed: 2026-07-06*
+
+## Self-Check: PASSED
+
+All 3 modified files (radar.py, app.py, test_render_smoke.py) and this SUMMARY.md verified present on disk; all 3 commit hashes (6cc1a2b, b08b02a, 11a2617) verified present in git log.

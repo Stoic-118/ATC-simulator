@@ -4,17 +4,17 @@ milestone: v1.0
 milestone_name: milestone
 current_phase: 03
 current_phase_name: Aircraft Performance, Flight-Phase FSM & Procedure Following
-status: executing
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-07-06T18:49:51.177Z"
+status: verifying
+stopped_at: Completed 03-06-PLAN.md (final plan of Phase 3)
+last_updated: "2026-07-06T19:10:30.134Z"
 last_activity: 2026-07-06
 last_activity_desc: Phase 03 execution started
 progress:
   total_phases: 7
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 16
-  completed_plans: 15
-  percent: 29
+  completed_plans: 16
+  percent: 43
 ---
 
 # Project State
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-07-03)
 
 Phase: 03 (Aircraft Performance, Flight-Phase FSM & Procedure Following) — EXECUTING
 Plan: 6 of 6
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-07-06 — Phase 03 execution started
 
 Progress: [░░░░░░░░░░] 0%
@@ -71,6 +71,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03 P03 | 3min | 1 tasks | 1 files |
 | Phase 03 P04 | 25min | 3 tasks | 6 files |
 | Phase 03 P05 | 20min | 1 tasks | 2 files |
+| Phase 03 P06 | 20min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -105,6 +106,9 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 03-04]: Renamed render/radar.py's RenderState Protocol + draw_frame from x/y to x_nm/y_nm in lockstep with the AircraftSnapshot rename (Rule 3 fix); real nm->pixel projection remains deferred to plan 03-06
 - [Phase ?]: [Phase 03-05]: spawn_departure/spawn_arrival take an optional performance parameter (defaulting to next rotated fleet type) rather than a required one, matching the actual test contract in tests/test_departure_flow.py and tests/test_arrival_flow.py which call both with zero arguments
 - [Phase ?]: [Phase 03-05]: Fixed a latent Rule-1 bug in aircraft.py's _is_phase_complete -- TAXI_IN is terminal (no legal transitions) so it must never auto-fire transition_to(), which previously raised StopIteration once an arrival's TAXI_IN timer elapsed; removal of TAXI_IN aircraft is now purely demo_traffic.py's list-membership concern
+- [Phase 03-06]: draw_frame changed to accept an iterable of (render_state, trail) pairs so any number of demo_traffic aircraft render in one call, with no phase-aware branching or new per-type symbol added to radar.py (D-04 held)
+- [Phase 03-06]: app.py tracks per-aircraft prev-snapshot/trail state in dicts keyed by id(aircraft) rather than adding a tracking-id field to the Aircraft model
+- [Phase 03-06]: Task 3's end-of-phase human-check was satisfied via a headless equivalent-verification harness (20,000 real sim ticks through the actual demo_traffic/draw_frame/interpolation call path) since this session has no interactive display; genuine visual sign-off on the project owner's own machine remains the recommended final step
 
 ### Pending Todos
 
@@ -125,7 +129,7 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-06T18:44:52.767Z
-Stopped at: Completed 03-03-PLAN.md
+Last session: 2026-07-06T19:10:30.117Z
+Stopped at: Completed 03-06-PLAN.md (final plan of Phase 3)
 Resume file: 
 None
