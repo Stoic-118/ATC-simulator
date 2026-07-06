@@ -187,8 +187,15 @@ def _is_phase_complete(aircraft: Aircraft) -> bool:
     """Completion conditions read aircraft state, so they live here (not
     phase.py) to preserve phase.py as a pure leaf module with zero
     Aircraft coupling."""
-    if aircraft.phase in (Phase.TAXI_OUT, Phase.TAXI_IN):
+    if aircraft.phase == Phase.TAXI_OUT:
         return aircraft.phase_elapsed_sec >= _TAXI_DURATION_SEC
+    # NOTE: TAXI_IN is deliberately excluded here -- it is a terminal Phase
+    # (LEGAL_TRANSITIONS[Phase.TAXI_IN] == set()), so auto-completing it
+    # would make sim_step() call transition_to(TAXI_IN, _next_phase(TAXI_IN))
+    # and _next_phase() would raise StopIteration trying to iterate an empty
+    # legal-transitions set. "Is TAXI_IN done" is answered externally by
+    # demo_traffic.py's removal check (list membership), matching phase.py's
+    # own documented design (03-05 Rule 1 fix).
     if aircraft.phase == Phase.DEPARTURE_ROLL:
         return aircraft.speed_kt >= _ROTATION_SPEED_KT
     if aircraft.phase == Phase.CLIMB:
