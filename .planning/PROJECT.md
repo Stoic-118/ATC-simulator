@@ -18,14 +18,17 @@ The player can work a full session — launch an aircraft off a SID, land anothe
 - [x] One SID and one STAR, off/into runway 25, with realistic ILS parameters (localizer course, 3.0° glideslope, CAT I decision height) — Validated in Phase 2: Navdata & Coordinate Projection (procedure restrictions modeled as data; ILS localizer/glideslope parameters modeled — on-screen restriction display deferred to Phase 4)
 - [x] geographiclib for great-circle distance/bearing and lat/lon math — Validated in Phase 2: Navdata & Coordinate Projection (shared cosine-corrected projection built directly on `geographiclib.Geodesic.WGS84.Inverse()`; pyproj not used)
 - [x] Pydantic models for aircraft, procedure, and navdata — Validated (aircraft in Phase 1; procedure and navdata in Phase 2), all as frozen/validated Pydantic v2 models per the project's established conventions
+- [x] Simplified per-aircraft-type performance profiles (climb/descent rate, speed envelope, turn rate as a function of bank angle and groundspeed) across a fleet of 4 aircraft types (Boeing 737-800, Embraer E175, ATR 72-600, Cessna Citation CJ2+) — Validated in Phase 3: Aircraft Performance, Flight-Phase FSM & Procedure Following
+- [x] Explicit flight-phase state machine (taxi-out, departure roll, climb, en-route, descent, approach, landed, taxi-in) with a legal-transitions table rejecting any illegal state change — Validated in Phase 3 (ILS localizer/glideslope capture as a distinct guidance state is separately scoped to Phase 4, per the PROC-03 requirement)
+- [x] Departure flow: spawn at stand → abstracted taxi (timer-based, no ground pathfinding) → takeoff → climb via the SID → autonomous removal from active traffic — Validated in Phase 3
+- [x] Arrival flow (procedural): spawn airborne at the STAR entry fix with realistic initial altitude/speed → autonomous procedural descent following STAR legs/restrictions → landing → abstracted taxi-in → removal from active traffic — Validated in Phase 3 (vectored descent and ILS capture remain Phase 4 scope, per PROC-02/PROC-03)
+- [x] Automatic SID/STAR leg and altitude/speed-restriction following, including restriction look-ahead so unrestricted legs target the next real restriction instead of holding level — Validated in Phase 3
 
 ### Active
 
 - [ ] Radar canvas: aircraft datablocks (callsign/altitude/speed/assigned info) — deferred to Phase 4 (needs instructions to exist first for "assigned info" to be meaningful)
 - [ ] IFR traffic only for v1 (VFR deferred to v2+)
-- [ ] Simplified per-aircraft-type performance profiles (climb/descent rate, speed envelope, turn rate as a function of bank angle and groundspeed) for a small fleet of 3–5 aircraft types
-- [ ] Departure flow: spawn at stand → abstracted taxi (timer-based, no ground pathfinding) → takeoff → climb via the one SID → exit
-- [ ] Arrival flow: spawn airborne at the STAR entry fix with realistic initial altitude/speed → vectored or procedural descent → ILS capture (localizer then glideslope) → landing → abstracted taxi-in
+- [ ] Vectoring instructions (heading/altitude/speed) that override procedure-following as a layer on top of it, plus ILS capture (localizer then glideslope) modeled as a single well-defined guidance state reachable via vectors or procedural continuation
 - [ ] Core instruction set: heading, altitude/level, speed, direct-to-fix, cleared approach, cleared for takeoff/landing
 - [ ] Click + command-panel input: click an aircraft to select it, issue instructions via panel controls (mouse-first, console-style)
 - [ ] Separation checking: standard vertical (1000ft below FL290) and horizontal (5nm) minima, surfaced as STCA-style visual/audio conflict alerts — not auto-enforced
@@ -68,13 +71,15 @@ The player can work a full session — launch an aircraft off a SID, land anothe
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | Click + command-panel input over typed shorthand | Mouse-first matches real radar consoles; typed shorthand could be added later as an accelerator | — Pending |
-| Simplified performance profiles over BADA tables or full physics | Feels real without blocking v1 on heavy aircraft-performance modeling | — Pending |
-| Scripted scenario file over randomized traffic generator (v1) | Debugging separation/instruction logic needs repeatable, deterministic runs | — Pending |
+| Simplified performance profiles over BADA tables or full physics | Feels real without blocking v1 on heavy aircraft-performance modeling | Validated in Phase 3 (4-type FLEET, terminal-area speeds capped rather than each type's Mach cruise speed) |
+| Scripted scenario file over randomized traffic generator (v1) | Debugging separation/instruction logic needs repeatable, deterministic runs | — Pending (Phase 3 used a 2-aircraft looping demo harness as an interim stand-in; real scenario file is Phase 6) |
 | Real airport (London Luton, EGGW, runway 25) over fictional | Real-world-plausible navdata/ILS parameters without live AIRAC complexity | Validated in Phase 2 |
-| One runway direction, one SID, one STAR for v1 | Minimizes procedure/ILS logic surface area to prove the core loop fast | Validated in Phase 2 (OLNEY 2B SID, DET 2A STAR) |
+| One runway direction, one SID, one STAR for v1 | Minimizes procedure/ILS logic surface area to prove the core loop fast | Validated in Phase 2 (OLNEY 2B SID, DET 2A STAR); Phase 3 flew both procedures autonomously end-to-end |
 | Runway identifier updated "26" → "25" (Phase 2 research) | EGGW's runway was redesignated 08/26 → 07/25 in a May 2020 magnetic-drift realignment — same physical runway/threshold/ILS, relabeled identifier. Renamed throughout for real-world accuracy rather than keeping the outdated label, consistent with "the sim never lies." | Validated in Phase 2 research |
 | IFR-only for v1, VFR deferred to v2+ | VFR is a second state machine and interaction model — the single biggest cut to reach v1 faster | — Pending |
 | Separation surfaced as alerts, not auto-enforced | A controller game with no separation consequence isn't an ATC game — but the controller must stay in control | — Pending |
+| 8-state flight-phase enum with no ILS-capture sub-states in Phase 3 | Roadmap's Phase 3 success criteria name exactly 8 states (taxi through taxi-in); localizer/glideslope capture is a guidance-mode concern owned by PROC-03, explicitly deferred to Phase 4 so it can be built once against both vectored and procedural approach paths rather than twice | Validated in Phase 3 |
+| Two-hardcoded-aircraft looping demo harness with fleet type-rotation, as a stand-in for the real scenario loader | Phase 6 owns the real scripted scenario file; Phase 3 needed *some* traffic source to prove autonomous flight, and rotation across all 4 fleet types was needed to satisfy "≥3 types visibly differentiated" with only 2 aircraft airborne at once | Validated in Phase 3 |
 
 ## Evolution
 
@@ -94,4 +99,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-07-06 after Phase 2 completion*
+*Last updated: 2026-07-06 after Phase 3 completion*
