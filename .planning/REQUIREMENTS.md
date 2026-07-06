@@ -29,7 +29,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Aircraft Performance & State
 
 - [x] **PERF-01**: Each aircraft uses a simplified per-type performance profile (climb/descent rate, speed envelope, turn rate as a function of bank angle and groundspeed), drawn from a fleet of 3-5 aircraft types
-- [ ] **PERF-02**: Aircraft flight phase is modeled as an explicit state machine (pushback/taxi, departure roll, climb, en-route, descent, approach, ILS capture, landed, taxi-in)
+- [x] **PERF-02**: Aircraft flight phase is modeled as an explicit state machine (pushback/taxi, departure roll, climb, en-route, descent, approach, ILS capture, landed, taxi-in)
 - [ ] **PERF-03**: Departure aircraft spawn at a stand, taxi via a timer abstraction (no ground pathfinding), then take off and climb via the SID
 - [ ] **PERF-04**: Arrival aircraft spawn airborne at the STAR entry fix with realistic initial altitude/speed, descend toward the airport, and taxi in (abstracted) after landing
 
@@ -114,7 +114,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NAV-03 | Phase 2 | Complete |
 | RADAR-04 | Phase 2 | Complete |
 | PERF-01 | Phase 3 | Complete |
-| PERF-02 | Phase 3 | Pending |
+| PERF-02 | Phase 3 | Complete |
 | PERF-03 | Phase 3 | Pending |
 | PERF-04 | Phase 3 | Pending |
 | PROC-01 | Phase 3 | Pending |
