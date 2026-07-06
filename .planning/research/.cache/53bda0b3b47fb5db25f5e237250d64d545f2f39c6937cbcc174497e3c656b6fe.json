@@ -1,0 +1,1 @@
+{"content":"Shortest-path angle interpolation: diff = ((to - from + 180) % 360) - 180; result = from + diff * t. Avoids the aircraft heading vector visually spinning the long way around when interpolating across the 0/360 boundary.","source":"web","provider":"websearch","confidence":"MEDIUM","fetched_at":"2026-07-03T23:03:28.513Z","ttl":86400000,"kind":"web"}

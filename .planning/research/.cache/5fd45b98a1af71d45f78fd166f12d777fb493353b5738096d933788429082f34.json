@@ -1,0 +1,1 @@
+{"content":"Standard src-layout pyproject.toml: src/<pkg>/__init__.py, [project.scripts] table maps a command name to 'pkg.module:function'. setuptools or hatchling as build-backend both support src-layout with automatic package discovery.","source":"web","provider":"websearch","confidence":"MEDIUM","fetched_at":"2026-07-03T23:03:28.391Z","ttl":86400000,"kind":"web"}
