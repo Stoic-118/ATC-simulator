@@ -30,12 +30,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **PERF-01**: Each aircraft uses a simplified per-type performance profile (climb/descent rate, speed envelope, turn rate as a function of bank angle and groundspeed), drawn from a fleet of 3-5 aircraft types
 - [x] **PERF-02**: Aircraft flight phase is modeled as an explicit state machine (pushback/taxi, departure roll, climb, en-route, descent, approach, ILS capture, landed, taxi-in)
-- [ ] **PERF-03**: Departure aircraft spawn at a stand, taxi via a timer abstraction (no ground pathfinding), then take off and climb via the SID
-- [ ] **PERF-04**: Arrival aircraft spawn airborne at the STAR entry fix with realistic initial altitude/speed, descend toward the airport, and taxi in (abstracted) after landing
+- [x] **PERF-03**: Departure aircraft spawn at a stand, taxi via a timer abstraction (no ground pathfinding), then take off and climb via the SID
+- [x] **PERF-04**: Arrival aircraft spawn airborne at the STAR entry fix with realistic initial altitude/speed, descend toward the airport, and taxi in (abstracted) after landing
 
 ### Procedure Following
 
-- [ ] **PROC-01**: Aircraft cleared via the SID/STAR follow procedure legs and restrictions automatically
+- [x] **PROC-01**: Aircraft cleared via the SID/STAR follow procedure legs and restrictions automatically
 - [ ] **PROC-02**: Vectoring instructions (heading/altitude/speed) override procedure-derived targets as a layer on top of procedure-following, not a separate movement code path
 - [ ] **PROC-03**: Aircraft can capture the ILS (localizer then glideslope) from a vectored or procedural approach, with lateral guidance mode modeled as a single well-defined state rather than independent flags
 
@@ -115,9 +115,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RADAR-04 | Phase 2 | Complete |
 | PERF-01 | Phase 3 | Complete |
 | PERF-02 | Phase 3 | Complete |
-| PERF-03 | Phase 3 | Pending |
-| PERF-04 | Phase 3 | Pending |
-| PROC-01 | Phase 3 | Pending |
+| PERF-03 | Phase 3 | Complete |
+| PERF-04 | Phase 3 | Complete |
+| PROC-01 | Phase 3 | Complete |
 | INST-01 | Phase 4 | Pending |
 | INST-02 | Phase 4 | Pending |
 | INST-03 | Phase 4 | Pending |
