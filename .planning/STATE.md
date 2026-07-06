@@ -4,8 +4,8 @@ milestone: v1.0
 milestone_name: milestone
 current_phase: 4
 current_phase_name: Instruction Handling — Click, Panel, Vectoring & ILS Capture
-status: verifying
-stopped_at: Completed 03-06-PLAN.md (final plan of Phase 3)
+status: ready_to_plan
+stopped_at: Phase 3 complete (UAT passed), ready to plan Phase 4
 last_updated: "2026-07-06T19:27:33.264Z"
 last_activity: 2026-07-06
 last_activity_desc: Phase 03 complete, transitioned to Phase 4
@@ -21,17 +21,17 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-07-03)
+See: .planning/PROJECT.md (updated 2026-07-06)
 
 **Core value:** The player can work a full session — launch an aircraft off a SID, land another off the ILS, entirely through their own instructions — and the sim never lies about separation.
-**Current focus:** Phase 03 — Aircraft Performance, Flight-Phase FSM & Procedure Following
+**Current focus:** Phase 04 — Instruction Handling — Click, Panel, Vectoring & ILS Capture
 
 ## Current Position
 
 Phase: 4 — Instruction Handling — Click, Panel, Vectoring & ILS Capture
 Plan: Not started
-Status: Phase complete — ready for verification
-Last activity: 2026-07-06 — Phase 03 complete, transitioned to Phase 4
+Status: Ready to plan
+Last activity: 2026-07-06 — Phase 03 complete (UAT passed), transitioned to Phase 4
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -117,8 +117,9 @@ None yet.
 
 ### Blockers/Concerns
 
-- Research flags Phase 3/4 (ILS localizer/glideslope capture-angle logic) and Phase 4 (click hit-region sizing/ambiguity resolution) as candidates for a `--research-phase` pass during planning — see .planning/research/SUMMARY.md Research Flags section
+- [Phase 3 resolved]: ILS localizer/glideslope capture-angle logic was correctly scoped out of Phase 3 (8-state Phase enum has no ILS sub-states; PROC-03 owns it) — remains a `--research-phase` candidate for Phase 4, along with Phase 4's own click hit-region sizing/ambiguity resolution — see .planning/research/SUMMARY.md Research Flags section
 - Magnetic variation constant for EGGW is a deliberate hardcoded simplification for v1 (Phase 2) — re-confirm against current EGGW charts at implementation time
+- Literal on-screen visual sign-off of Phase 3's demo loop was verified via a headless equivalent-verification harness (no display in the execution sandbox) rather than a real screen-watch — recommended to actually launch `atc-sim` once on a machine with a display to eyeball it, though UAT already passed on the data-level evidence
 
 ## Deferred Items
 
@@ -130,7 +131,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-06T19:10:30.117Z
-Stopped at: Completed 03-06-PLAN.md (final plan of Phase 3)
-Resume file: 
-None
+Last session: 2026-07-06T19:30:19.000Z
+Stopped at: Phase 3 complete, ready to plan Phase 4
+Resume file: None
