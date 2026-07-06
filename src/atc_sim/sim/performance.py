@@ -110,3 +110,40 @@ def turn_rate_deg_per_sec(bank_deg: float, speed_kt: float) -> float:
     knobs): a faster aircraft turns more slowly at the same bank angle.
     """
     return (1091.0 * math.tan(math.radians(bank_deg))) / speed_kt
+
+
+def step_toward_value(current: float, target: float, max_delta: float) -> float:
+    """The ONE place a scalar value (altitude, speed) moves toward a target
+    by at most `max_delta` per tick, never overshooting. Reused for both
+    altitude (max_delta = rate_fpm / 60 * dt) and speed
+    (max_delta = max_speed_change_kt_per_sec * dt) — selecting climb_rate_fpm
+    vs descent_rate_fpm (target above vs below current) is the CALLER's
+    responsibility (done in aircraft.py's dispatch, plan 03-04)."""
+    if current == target:
+        return current
+    if current < target:
+        return min(current + max_delta, target)
+    return max(current - max_delta, target)
+
+
+def step_toward_heading(current_deg: float, target_deg: float, max_turn_deg: float) -> float:
+    """Turns `current_deg` toward `target_deg` by at most `max_turn_deg`,
+    along the shortest angular path across the 0/360 wrap, never
+    overshooting. Mirrors the wrap logic in
+    sim/interpolation.py::_lerp_angle_deg. Compass convention matches
+    navdata/geo.py: 0deg = north, increasing clockwise, sin=x, cos=y — do
+    not reinvent a different sign convention here."""
+    diff = ((target_deg - current_deg + 180) % 360) - 180
+    if diff > 0:
+        turn = min(diff, max_turn_deg)
+    else:
+        turn = max(diff, -max_turn_deg)
+    return (current_deg + turn) % 360
+
+
+def glidepath_altitude_ft(distance_to_threshold_nm: float) -> float:
+    """Simplified 3-degree "rule of three" glidepath altitude: 300ft per nm
+    from the threshold, clamped to >= 0.0. This is NOT real
+    localizer/glideslope geometry — it is used only by the APPROACH phase
+    in a later plan, per 03-RESEARCH.md Pattern C."""
+    return max(distance_to_threshold_nm * 300.0, 0.0)
